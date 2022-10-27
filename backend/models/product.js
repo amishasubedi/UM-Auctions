@@ -4,108 +4,99 @@ const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter product name"],
-    trim: true, // to remove all blank spaces
-    maxLength: [100, "cannot exceed 100 characters"], // maybe 100 characters?
+    trim: true,
+    maxLength: [100, "Product name cannot exceed 100 characters"],
   },
-
-  // bidders can set the min price for their products
-  minPrice: {
+  price: {
     type: Number,
-    required: [true, "Please enter minimun price for your product"],
-    maxLength: [5, "cannot exceed 5 characters"], // maybe 100 characters?
-    default: 0.0, // set default price to 0
+    required: [true, "Please enter product price"],
+    maxLength: [5, "Product name cannot exceed 5 characters"],
+    default: 0.0,
   },
-
   description: {
     type: String,
-    required: [true, "Please enter the description"],
-    maxLength: [500, "cannot exceed 500 characters"], // maybe 100 characters?
+    required: [true, "Please enter product description"],
   },
-
-  // ratings - totally optional - logic -> average of all user's ratings - do we even need this at all?
   ratings: {
     type: Number,
     default: 0,
   },
-
-  // user can upload multiple images so maybe create an array
   images: [
     {
       public_id: {
         type: String,
         required: true,
       },
-
       url: {
         type: String,
         required: true,
       },
     },
   ],
-
-  // product category so that we can implement search by keyword feature - there should be specific categories to prevent user to
-  // to add their own category - handled by enum
   category: {
     type: String,
-    required: [true, "Select category for this product"],
+    required: [true, "Please select category for this product"],
     enum: {
-      // here values is an array of categories
       values: [
         "Electronics",
-        "Paintings",
+        "Cameras",
+        "Laptops",
         "Accessories",
-        "Home Decor",
+        "Headphones",
+        "Food",
         "Books",
-        "Shoes",
-        "Health",
+        "Clothes/Shoes",
+        "Beauty/Health",
+        "Sports",
         "Outdoor",
-        "Storage",
+        "Home",
       ],
-
-      message: "Please select category for this item",
+      message: "Please select correct category for product",
     },
-
-    seller: {
-      type: String,
-      required: [true, "Please enter product seller"],
-    },
-
-    status: {
-      type: String,
-      default: "Pending",
-    },
-
-    stock: {
-      type: Number,
-      required: [true, "Please enter product stock"],
-      maxLength: [5],
-      default: 0,
-    },
-
-    reviews: [
-      {
-        name: {
-          type: String,
-          required: true,
-        },
-
-        rating: {
-          type: Number,
-          required: true,
-        },
-
-        comment: {
-          type: String,
-          required: true,
-        },
+  },
+  seller: {
+    type: String,
+    required: [true, "Please enter product seller"],
+  },
+  stock: {
+    type: Number,
+    required: [true, "Please enter product stock"],
+    maxLength: [5, "Product name cannot exceed 5 characters"],
+    default: 0,
+  },
+  numOfReviews: {
+    type: Number,
+    default: 0,
+  },
+  reviews: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
       },
-    ],
-
-    createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now,
+      name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
     },
+  ],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
