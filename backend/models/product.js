@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Please enter product name"],
+    // required: [true, "Please enter product name"],
     trim: true,
     maxLength: [100, "Product name cannot exceed 100 characters"],
   },
@@ -73,7 +73,7 @@ const productSchema = new mongoose.Schema({
       user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: true,
+        required: false,
       },
       name: {
         type: String,
@@ -92,7 +92,7 @@ const productSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,
