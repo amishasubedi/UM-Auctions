@@ -1,18 +1,19 @@
 const Product = require("../models/product");
 const ErrorHandler = require("../utils/ErrorHandler");
+const AsyncErrors = require("../middlewares/AsyncErrors");
 
 // create new product
-exports.newProduct = async (req, res, next) => {
+exports.newProduct = AsyncErrors(async (req, res, next) => {
   const product = await Product.create(req.body);
 
   res.status(201).json({
     success: true,
     product,
   });
-};
+});
 
 // display all product
-exports.getProducts = async (req, res, next) => {
+exports.getProducts = AsyncErrors(async (req, res, next) => {
   const products = await Product.find();
 
   res.status(200).json({
@@ -21,10 +22,10 @@ exports.getProducts = async (req, res, next) => {
     count: products.length,
     products,
   });
-};
+});
 
 // get single product
-exports.getSingleProduct = async (req, res, next) => {
+exports.getSingleProduct = AsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
@@ -40,10 +41,10 @@ exports.getSingleProduct = async (req, res, next) => {
     success: true,
     product,
   });
-};
+});
 
 // update product
-exports.updateProduct = async (req, res, next) => {
+exports.updateProduct = AsyncErrors(async (req, res, next) => {
   let product = Product.findById(req.params.id);
 
   if (!product) {
@@ -63,10 +64,10 @@ exports.updateProduct = async (req, res, next) => {
     success: true,
     product,
   });
-};
+});
 
 // delete product -> only admin can delete the bid -> /api/v1/admin/products
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = AsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
@@ -82,4 +83,4 @@ exports.deleteProduct = async (req, res, next) => {
     success: true,
     message: "Product is deleted",
   });
-};
+});
