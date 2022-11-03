@@ -19,6 +19,19 @@ module.exports = (err, req, res, next) => {
     let error = { ...err }; // destructing to copy erros
     error.message = err.message;
 
+    // handle mongo error
+    if (err.name === "CastError") {
+      const message = `Resource not found. Invalid ${err.path}`;
+
+      error = new ErrorHandler(message, 400);
+    }
+
+    // validation errors
+    if (err.name === "ValidationError") {
+      const message = Object.values(err.errors).map((value) => value.message);
+      error = new ErrorHandler(message, 400);
+    }
+
     res.status(err.errorCode).json({
       success: false,
       message: error.message || "Internal Server Error",
