@@ -14,7 +14,9 @@ exports.newProduct = AsyncErrors(async (req, res, next) => {
 
 // display all product
 exports.getProducts = AsyncErrors(async (req, res, next) => {
-  const apiProduct = new APIProduct(Product.find(), req.query).search();
+  const apiProduct = new APIProduct(Product.find(), req.query)
+    .search()
+    .filter();
 
   //const products = await Product.find();
   const products = await apiProduct.query;
