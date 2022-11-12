@@ -38,6 +38,14 @@ class APIProduct {
     this.query = this.query.find(JSON.parse(queryString));
     return this;
   }
+
+  pagination(productsInPage) {
+    const current = Number(this.queryString.page) || 1;
+    const skip = productsInPage * current - 1;
+
+    this.query = this.query.limit(productsInPage).skip(skip); // limit the number of items
+    return this;
+  }
 }
 
 module.exports = APIProduct;

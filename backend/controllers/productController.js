@@ -14,9 +14,12 @@ exports.newProduct = AsyncErrors(async (req, res, next) => {
 
 // display all product
 exports.getProducts = AsyncErrors(async (req, res, next) => {
+  const productsInPage = 4;
+  const numberOfProducts = await Product.countDocuments();
   const apiProduct = new APIProduct(Product.find(), req.query)
     .search()
-    .filter();
+    .filter()
+    .pagination(productsInPage);
 
   //const products = await Product.find();
   const products = await apiProduct.query;
@@ -25,6 +28,7 @@ exports.getProducts = AsyncErrors(async (req, res, next) => {
     success: true,
     // message: "This route will show all route in database",
     count: products.length,
+    numberOfProducts,
     products,
   });
 });
