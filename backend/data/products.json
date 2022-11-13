@@ -6,7 +6,7 @@
         "ratings" : 4.5,
         "images" : [{
             "public_id" : "products/dsvbpny402gelwugv2le",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/453e8fbe5c95d54cf641302a391c5261"
         }],
         "category" : "Electronics",
         "seller" : "Ebay",
@@ -21,7 +21,7 @@
         "ratings" : 1.65,
         "images" : [{
             "public_id" : "products/61oXGZ60GfL_fixco9",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://res.cloudinary.com/dkktlj0ow/image/upload/v1668197426/cld-sample-3.jpg"
         }],
         "category" : "Electronics",
         "seller" : "Amazon",
@@ -36,7 +36,7 @@
         "ratings" : 3.5,
         "images" : [{
             "public_id" : "products/chairmount_nuubea",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/db6b6598a41887ab7031c6cf97f94e4a"
         }],
         "category" : "Electronics",
         "seller" : "Amazon",
@@ -51,7 +51,7 @@
         "ratings" : 4.5,
         "images" : [{
             "public_id" : "products/headphones_t2afnb",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/9c6158f8f91abacb1fe7b98797d81c80"
         }],
         "category" : "Headphones",
         "seller" : "Amazon",
@@ -66,7 +66,7 @@
         "ratings" : 4.8,
         "images" : [{
             "public_id" : "products/airpords_e5cqqr",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/bc4b73981071c8cd0e1a0e0f8c4b7d2a"
         }],
         "category" : "Electronics",
         "seller" : "Amazon",
@@ -81,7 +81,7 @@
         "ratings" : 4.1,
         "images" : [{
             "public_id" : "products/eahhtj1bkn1k9gjgd3hn",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/67e7db6e9ecb485f43bb747d8b13d579"
         }],
         "category" : "Accessories",
         "seller" : "Amazon",
@@ -96,7 +96,7 @@
         "ratings" : 4.7,
         "images" : [{
             "public_id" : "products/camera_ridc0i",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/2c7adea26cae85e397dbc74b48fd8cb6"
         }],
         "category" : "Cameras",
         "seller" : "Amazon",
@@ -111,7 +111,7 @@
         "ratings" : 4.9,
         "images" : [{
             "public_id" : "products/macbook_o2cj2k",
-            "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+            "url" : "https://asset.cloudinary.com/dkktlj0ow/9c96a748ed01635a2b2f8c460e0f3b7d"
         }],
         "category" : "Laptops",
         "seller" : "Amazon",
@@ -127,15 +127,15 @@
         "images" : [
             {
                 "public_id" : "products/wmoa49q9e70ze9xtcra2",
-                "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+                "url" : "https://asset.cloudinary.com/dkktlj0ow/f25cae6d2b9d2809a84e3fb1df688e09"
             },
             {
                 "public_id" : "products/i0k1wdwi5hrpmzwxvsds",
-                "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5" 
+                "url" : "https://asset.cloudinary.com/dkktlj0ow/f25cae6d2b9d2809a84e3fb1df688e09" 
             },
             {
                 "public_id" : "products/bshmuo9qisfhz4azvnsd",
-                "url" : "https://asset.cloudinary.com/dalx1urcp/c60ed25e02609658fa2fd59e7c6259d5"
+                "url" : "https://asset.cloudinary.com/dkktlj0ow/f25cae6d2b9d2809a84e3fb1df688e09"
             }
     ],
         "category" : "Food",
