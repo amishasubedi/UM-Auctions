@@ -16,39 +16,40 @@ import UserChatRoutes from "./components/user/UserChatRoutes";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route element={<UserChatRoutes />}>
-          <Route path="/" element={<Home />} />
+    <h2>Hello</h2>
+    // <BrowserRouter>
+    //   <Header />
+    //   <Routes>
+    //     <Route element={<UserChatRoutes />}>
+    //       <Route path="/" element={<Home />} />
 
-          <Route path="/cart" element={<Cart />} />
+    //       <Route path="/cart" element={<Cart />} />
 
-          <Route path="/login" element={<Login />} />
+    //       <Route path="/login" element={<Login />} />
 
-          <Route path="/register" element={<Register />} />
+    //       <Route path="/register" element={<Register />} />
 
-          <Route path="/list" element={<ProductList />} />
+    //       <Route path="/list" element={<ProductList />} />
 
-          <Route path="/detail" element={<ProductDetail />} />
+    //       <Route path="/detail" element={<ProductDetail />} />
 
-          <Route path="*" element="Page not found" />
+    //       <Route path="*" element="Page not found" />
 
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/user" element={<UserProfile />} />
+    //       <Route element={<ProtectedRoutes />}>
+    //         <Route path="/user" element={<UserProfile />} />
 
-            <Route path="/user/order-details" element={<OrderDetails />} />
+    //         <Route path="/user/order-details" element={<OrderDetails />} />
 
-            <Route path="/usercart" element={<userCart />} />
+    //         <Route path="/usercart" element={<userCart />} />
 
-            <Route path="/user/order" element={<UserOrder />} />
-          </Route>
-        </Route>
+    //         <Route path="/user/order" element={<UserOrder />} />
+    //       </Route>
+    //     </Route>
 
-        {/* admin pages */}
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    //     {/* admin pages */}
+    //   </Routes>
+    //   <Footer />
+    // </BrowserRouter>
   );
 }
 
