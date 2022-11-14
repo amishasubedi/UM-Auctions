@@ -1,7 +1,7 @@
 const User = require("../models/user");
-
 const ErrorHandler = require("../utils/ErrorHandler");
 const AsyncErrors = require("../middlewares/AsyncErrors");
+const sendToken = require("../utils/token");
 
 exports.registerUser = AsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -17,13 +17,15 @@ exports.registerUser = AsyncErrors(async (req, res, next) => {
     },
   });
 
-  const token = user.getJWTToken();
+  sendToken(user, 200, res);
 
-  res.status(201).json({
-    success: true,
-    //user,
-    token,
-  });
+  // const token = user.getJWTToken();
+
+  // res.status(201).json({
+  //   success: true,
+  //   //user,
+  //   token,
+  // });
 });
 
 // login
@@ -33,16 +35,14 @@ exports.authenticate = AsyncErrors(async (req, res, next) => {
   console.log(email, password, req.body);
   //check email and password are provided or not
   if (!email || !password) {
-    return next(new CustomError("please provide email and password", 400));
+    return next(new ErrorHandler("please provide email and password", 400));
   }
 
   //check if user exists or not in the database
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    return next(
-      new ErrorHandler("please provide valid email and passsword", 400)
-    );
+    return next(new ErrorHandler("yo error", 400));
   }
 
   //check if the password is valid or not
@@ -52,9 +52,11 @@ exports.authenticate = AsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("not working", 400));
   }
 
-  const token = user.getJWTToken();
-  res.status(200).json({
-    success: true,
-    token,
-  });
+  sendToken(user, 200, res);
+
+  // const token = user.getJWTToken();
+  // res.status(200).json({
+  //   success: true,
+  //   token,
+  // });
 });
