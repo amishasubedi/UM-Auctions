@@ -1,10 +1,11 @@
 const sendToken = (user, statusCode, res) => {
   const token = user.getJWTToken();
+  const cookie =
+    process.env.COOKIE_EXPIRES_TIME.replace("d", "") * 24 * 60 * 60 * 1000;
 
+  const expiryDate = Date.now() + cookie;
   const options = {
-    expires: new Date(
-      Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(expiryDate),
     httpOnly: true,
   };
 
@@ -14,4 +15,5 @@ const sendToken = (user, statusCode, res) => {
     user,
   });
 };
+
 module.exports = sendToken;
