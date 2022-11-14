@@ -25,3 +25,37 @@ exports.registerUser = AsyncErrors(async (req, res, next) => {
     token,
   });
 });
+
+// login
+//user login controller
+exports.authenticate = AsyncErrors(async (req, res, next) => {
+  const { email, password } = req.body;
+  console.log(email, password, req.body);
+  //check email and password are provided or not
+  if (!email || !password) {
+    return next(new CustomError("please provide email and password", 400));
+  }
+
+  //check if user exists or not in the database
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    return next(
+      new ErrorHandler("please provide valid email and passsword", 400)
+    );
+  }
+
+  //check if the password is valid or not
+  const isCorrectPassword = await user.isValidatedPassword(password);
+  console.log(isCorrectPassword);
+
+  if (!isCorrectPassword) {
+    return next(new ErrorHandler("not working", 400));
+  }
+
+  const token = user.getJWTToken();
+  res.status(200).json({
+    success: true,
+    token,
+  });
+});
