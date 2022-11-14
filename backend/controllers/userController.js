@@ -32,7 +32,7 @@ exports.registerUser = AsyncErrors(async (req, res, next) => {
 //user login controller
 exports.authenticate = AsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password, req.body);
+  //console.log(email, password, req.body);
   //check email and password are provided or not
   if (!email || !password) {
     return next(new ErrorHandler("please provide email and password", 400));
@@ -52,6 +52,7 @@ exports.authenticate = AsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("not working", 400));
   }
 
+  //sendToken(user, 200, res);
   sendToken(user, 200, res);
 
   // const token = user.getJWTToken();
