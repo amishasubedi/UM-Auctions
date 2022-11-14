@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs/dist/bcrypt");
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
@@ -49,19 +49,29 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
 });
 
-// Encrypt password
+///password encryption using bcrypt before saving the user -HOOKS
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password") || this.isNew) {
-    next();
+  //if the password is not modified then move to the next middleware
+  if (!this.isModified("password")) {
+    return next();
   }
 
-  this.password = await bcrypt.hash(this.password, 10);
+  const salt = await bcrypt.genSalt(100);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
-// return jwt token
+//compare the password entered by the user with the password in the database
+userSchema.methods.isValidatedPassword = async function (userSendPassword) {
+  console.log("test1: " + userSendPassword);
+  console.log("test2: " + this.password);
+
+  return await bcrypt.compareSync(this.password, userSendPassword);
+};
+
+//create and return the jwt token
 userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_TIME,
+    expiresIn: process.env.JWT_EXPIRY,
   });
 };
 
