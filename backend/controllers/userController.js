@@ -47,7 +47,6 @@ exports.authenticate = AsyncErrors(async (req, res, next) => {
 
   //check if the password is valid or not
   const isCorrectPassword = await user.isValidatedPassword(password);
-  console.log(isCorrectPassword);
 
   if (!isCorrectPassword) {
     return next(new ErrorHandler("not working", 400));

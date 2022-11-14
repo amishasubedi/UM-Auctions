@@ -49,29 +49,24 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
 });
 
-///password encryption using bcrypt before saving the user -HOOKS
+//password encryption using bcrypt before saving the user -HOOKS
 userSchema.pre("save", async function (next) {
   //if the password is not modified then move to the next middleware
   if (!this.isModified("password")) {
     return next();
   }
-
-  const salt = await bcrypt.genSalt(100);
-  this.password = await bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 //compare the password entered by the user with the password in the database
-userSchema.methods.isValidatedPassword = async function (userSendPassword) {
-  console.log("test1: " + userSendPassword);
-  console.log("test2: " + this.password);
-
-  return await bcrypt.compareSync(this.password, userSendPassword);
+userSchema.methods.isValidatedPassword = async function (usersendpassword) {
+  return await bcrypt.compare(usersendpassword, this.password);
 };
 
 //create and return the jwt token
 userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRY,
+    expiresIn: process.env.JWT_EXPIRES_TIME,
   });
 };
 
