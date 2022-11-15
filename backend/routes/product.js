@@ -12,11 +12,11 @@ const {
 
 const { isAuthenticated } = require("../middlewares/auth");
 
-router.route("/products").get(isAuthenticated, getProducts); // get - extracts product from db
+router.route("/products").get(getProducts); // get - extracts product from db
 router.route("/products/:id").get(getSingleProduct);
-router.route("/products/new").post(newProduct); // post -> add data to db
-router.route("/products/:id").put(updateProduct); // put -> to edit data
+router.route("/products/new").post(isAuthenticated, newProduct); // post -> add data to db
+router.route("/products/:id").put(isAuthenticated, updateProduct); // put -> to edit data
 
-router.route("/admin/products/:id").delete(deleteProduct);
+router.route("/admin/products/:id").delete(isAuthenticated, deleteProduct);
 
 module.exports = router;
