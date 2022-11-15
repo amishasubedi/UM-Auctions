@@ -18,21 +18,12 @@ exports.registerUser = AsyncErrors(async (req, res, next) => {
   });
 
   sendToken(user, 200, res);
-
-  // const token = user.getJWTToken();
-
-  // res.status(201).json({
-  //   success: true,
-  //   //user,
-  //   token,
-  // });
 });
 
-// login
 //user login controller
 exports.authenticate = AsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
-  //console.log(email, password, req.body);
+
   //check email and password are provided or not
   if (!email || !password) {
     return next(new ErrorHandler("please provide email and password", 400));
@@ -51,13 +42,18 @@ exports.authenticate = AsyncErrors(async (req, res, next) => {
   if (!isCorrectPassword) {
     return next(new ErrorHandler("not working", 400));
   }
-
-  //sendToken(user, 200, res);
   sendToken(user, 200, res);
+});
 
-  // const token = user.getJWTToken();
-  // res.status(200).json({
-  //   success: true,
-  //   token,
-  // });
+// logout user
+exports.logout = AsyncErrors(async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully logged out",
+  });
 });
