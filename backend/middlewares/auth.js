@@ -6,7 +6,6 @@ const User = require("../models/user");
 // checks if user is authenticated
 exports.isAuthenticated = AsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
-  console.log(token);
 
   if (!token) {
     return next(new ErrorHandler("Please login first", 401));
@@ -17,3 +16,19 @@ exports.isAuthenticated = AsyncErrors(async (req, res, next) => {
 
   next();
 });
+
+exports.assignRole = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorHandler(
+          `Role (${req.user.role}) is not allowed to acccess this resource`,
+          403,
+          console.log(req.user.role)
+        )
+      );
+    }
+
+    next();
+  };
+};
