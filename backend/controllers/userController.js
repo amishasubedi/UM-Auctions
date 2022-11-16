@@ -2,6 +2,7 @@ const User = require("../models/user");
 const ErrorHandler = require("../utils/ErrorHandler");
 const AsyncErrors = require("../middlewares/AsyncErrors");
 const sendToken = require("../utils/token");
+const sendEmail = require("../utils/SendEmail");
 
 exports.registerUser = AsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -56,4 +57,42 @@ exports.logout = AsyncErrors(async (req, res, next) => {
     success: true,
     message: "Successfully logged out",
   });
+});
+
+// forgot password
+exports.forgotPassword = AsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new ErrorHandler("User not registered with this email", 404));
+  }
+
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  //  url to reset the password
+  const resetURL = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/password/reset/${resetToken}`;
+
+  const message = `Reset your password from here: \n\n${resetURL}.`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "UMAuction Password Recovery",
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.email}`,
+    });
+  } catch (error) {
+    (user.resetPasswordToken = undefined),
+      (user.resetPasswordExpire = undefined);
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorHandler(error.message, 500));
+  }
 });
