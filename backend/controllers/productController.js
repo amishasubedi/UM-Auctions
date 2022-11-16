@@ -4,6 +4,7 @@ const AsyncErrors = require("../middlewares/AsyncErrors");
 const APIProduct = require("../utils/api");
 // create new product
 exports.newProduct = AsyncErrors(async (req, res, next) => {
+  req.body.user = req.user.id;
   const product = await Product.create(req.body);
 
   res.status(201).json({
