@@ -168,7 +168,7 @@ exports.editProfile = AsyncErrors(async (req, res, next) => {
     email: req.body.email,
   };
 
-  // update profile  - idk how to ?
+  // update profile picture - idk how to ?
 
   // just edit name and email
   const user = await User.findByIdAndUpdate(req.user.id, newData, {
@@ -202,5 +202,40 @@ exports.userDetails = AsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
+  });
+});
+
+exports.updateProfile = AsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// delete user
+exports.deleteUser = AsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not found with id: ${req.params.id}`)
+    );
+  }
+
+  await user.remove();
+
+  res.status(200).json({
+    success: true,
   });
 });
