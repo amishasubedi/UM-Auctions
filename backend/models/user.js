@@ -74,12 +74,12 @@ userSchema.methods.getJWTToken = function () {
 // Reset Password Token
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString("hex");
-  this.passwordResetToken = crypto
+  this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
   // Please note that you need to specify a time to expire this token. In this example is (10 min)
-  this.passwordResetExpire = Date.now() + 10 * 60 * 1000;
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
 
