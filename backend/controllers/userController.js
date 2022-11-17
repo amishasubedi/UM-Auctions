@@ -148,7 +148,6 @@ exports.getUserProfile = AsyncErrors(async (req, res, next) => {
 exports.updatePassword = AsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
 
-  // Check previous user password
   const isCorrectPassword = await user.isValidatedPassword(
     req.body.currentPassword
   );
@@ -160,4 +159,25 @@ exports.updatePassword = AsyncErrors(async (req, res, next) => {
   await user.save();
 
   sendToken(user, 200, res);
+});
+
+// edit profile
+exports.editProfile = AsyncErrors(async (req, res, next) => {
+  const newData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  // update profile  - idk how to ?
+
+  // just edit name and email
+  const user = await User.findByIdAndUpdate(req.user.id, newData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
 });
