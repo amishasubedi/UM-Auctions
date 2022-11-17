@@ -28,7 +28,7 @@ const serverCloseHandler = () => {
 
 // promise rejections errors
 process.on("unhandledRejection", (err) => {
-  console.log(`ERROR: ${err.message}`);
+  console.log(`ERROR: ${err.stack}`);
   console.log("Server down due to unhandled promise rejection");
   server.close(serverCloseHandler());
 });
