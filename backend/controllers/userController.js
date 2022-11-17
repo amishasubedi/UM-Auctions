@@ -143,3 +143,21 @@ exports.getUserProfile = AsyncErrors(async (req, res, next) => {
     user,
   });
 });
+
+// change password
+exports.updatePassword = AsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  // Check previous user password
+  const isCorrectPassword = await user.isValidatedPassword(
+    req.body.currentPassword
+  );
+  if (!isCorrectPassword) {
+    return next(new ErrorHandler("Current password is incorrect"));
+  }
+
+  user.password = req.body.password;
+  await user.save();
+
+  sendToken(user, 200, res);
+});
