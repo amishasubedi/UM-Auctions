@@ -1,4 +1,4 @@
-import axios from "axios;";
+import axios from "axios";
 import {
   ALL_PRODUCTS_REQ,
   ALL_PRODUCTS_FAIL,
@@ -13,7 +13,7 @@ export const getProducts = () => async (dispatch) => {
     // fetch data from backend
     const { data } = await axios.get("/api/v1/products");
 
-    disptach({
+    dispatch({
       type: ALL_PRODUCTS_SUCCESS,
       payload: data, // pass the fetched data in payload
     });
