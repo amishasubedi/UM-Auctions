@@ -25,13 +25,15 @@ exports.getProducts = AsyncErrors(async (req, res, next) => {
   //const products = await Product.find();
   const products = await apiProduct.query;
 
-  res.status(200).json({
-    success: true,
-    // message: "This route will show all route in database",
-    // count: products.length,
-    numberOfProducts,
-    products,
-  });
+  setTimeout(() => {
+    res.status(200).json({
+      success: true,
+      // message: "This route will show all route in database",
+      // count: products.length,
+      numberOfProducts,
+      products,
+    });
+  }, 600);
 });
 
 // get single product

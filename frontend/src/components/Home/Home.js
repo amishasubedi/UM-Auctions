@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../actions/product_actions";
 import Product from "../BidItems/product";
+import LoadingSpinner from "../UI/LoadingSpinner";
 import "./Home.css";
 
 const Home = () => {
@@ -19,16 +20,22 @@ const Home = () => {
 
   return (
     <Fragment>
-      <h1 id="products_heading">Latest Products</h1>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <Fragment>
+          <h1 id="products_heading">Latest Products</h1>
 
-      <section id="products" className="container mt-5">
-        <div className="row">
-          {products &&
-            products.map((product) => (
-              <Product key={product._id} product={product} />
-            ))}
-        </div>
-      </section>
+          <section id="products" className="container mt-5">
+            <div className="row">
+              {products &&
+                products.map((product) => (
+                  <Product key={product._id} product={product} />
+                ))}
+            </div>
+          </section>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
