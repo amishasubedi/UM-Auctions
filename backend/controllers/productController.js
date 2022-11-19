@@ -15,7 +15,7 @@ exports.newProduct = AsyncErrors(async (req, res, next) => {
 
 // display all product
 exports.getProducts = AsyncErrors(async (req, res, next) => {
-  const productsInPage = 4;
+  const productsInPage = 7;
   const numberOfProducts = await Product.countDocuments();
   const apiProduct = new APIProduct(Product.find(), req.query)
     .search()
@@ -28,7 +28,7 @@ exports.getProducts = AsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     // message: "This route will show all route in database",
-    count: products.length,
+    // count: products.length,
     numberOfProducts,
     products,
   });
