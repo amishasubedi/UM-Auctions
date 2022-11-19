@@ -8,7 +8,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(66, 66, 66, 0.2);
+  background-color: rgba(65, 33, 33, 0.2);
   border: 0px;
   background-clip: padding-box;
   border-radius: 5px;
@@ -20,7 +20,7 @@ nav {
 }
 
 #search_btn {
-  background-color: #febd69;
+  background-color: #e6a44e;
 }
 
 .input-group {
@@ -39,7 +39,7 @@ nav {
 
 #login_btn,
 #view_btn {
-  background-color: #febd69;
+  background-color: #e6a44e;
   padding: 0.4rem 1.8rem;
   font-family: calibri;
 }

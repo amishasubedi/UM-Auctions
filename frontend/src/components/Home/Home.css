@@ -23,11 +23,6 @@
   font-size: 1.4rem;
 }
 
-#view_btn {
-  background-color: #fa9c23;
-  color: white;
-}
-
 .card-img-top {
   width: 200px;
   height: 150px;
@@ -43,3 +38,14 @@
   color: grey;
   margin-left: 0.5rem;
 }
+
+/* .row {
+  -webkit-text-size-adjust: 100%;
+  font-size: 14px;
+  line-height: 20px;
+  color: #0f1111;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  -webkit-box-direction: normal;
+  box-sizing: border-box;
+  margin-bottom: 0 !important;
+} */

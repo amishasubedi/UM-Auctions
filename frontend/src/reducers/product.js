@@ -1,5 +1,5 @@
 import {
-  ALL_PRODUCTS_REQ,
+  ALL_PRODUCTS_FETCH,
   ALL_PRODUCTS_FAIL,
   ALL_PRODUCTS_SUCCESS,
   CLEAR_ERRORS,
@@ -8,7 +8,7 @@ import {
 export const productReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     // case 1 to fetch product
-    case ALL_PRODUCTS_REQ:
+    case ALL_PRODUCTS_FETCH:
       return {
         loading: true,
         products: [],
