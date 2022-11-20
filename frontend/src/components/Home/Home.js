@@ -1,24 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
+import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, handleErrors } from "../../actions/product_actions";
+import { fetchProducts, handleErrors } from "../../actions/product_actions";
 import Product from "../BidItems/product";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import "./Home.css";
 
 const Home = () => {
+  const [currentPage, setCurrentpage] = useState(1);
   const dispatch = useDispatch();
 
+  // page number of items
+  const setCurrentPageHandler = (page_num) => {
+    setCurrentpage(page_num);
+  };
   // fetch products to frontend
-  const { loading, products, error } = useSelector((state) => state.products);
+  const { loading, products, numberOfProducts, error, productsInPage } =
+    useSelector((state) => state.products);
 
+  // load the component only when the given dependency changes
   useEffect(() => {
-    dispatch(getProducts());
+    console.log(products);
+    dispatch(fetchProducts(currentPage));
 
     if (error) {
       dispatch(handleErrors);
     }
-  }, [dispatch]);
+  }, [dispatch, error, currentPage]);
 
   return (
     <Fragment>
@@ -36,6 +45,22 @@ const Home = () => {
                 ))}
             </div>
           </section>
+
+          {/* implement pagination */}
+          <div className="d-flex justify-content-center mt-5">
+            <Pagination
+              activePage={currentPage}
+              itemsCountPerPage={productsInPage}
+              totalItemsCount={numberOfProducts}
+              onChange={setCurrentPageHandler}
+              nextPageText={">"}
+              prevPageText={"<"}
+              firstPageText={"<<"}
+              lastPageText={">>"}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
+          </div>
         </Fragment>
       )}
     </Fragment>

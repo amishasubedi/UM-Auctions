@@ -2,10 +2,15 @@ import React, { useEffect, Fragment } from "react";
 import { Carousel } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails, handleErrors } from "../../actions/product_actions";
+import { useParams } from "react-router-dom";
+import {
+  fetchProductDetails,
+  handleErrors,
+} from "../../actions/product_actions";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
-const ProductInfo = ({ match }) => {
+const ProductInfo = () => {
+  const params = useParams();
   const dispatch = useDispatch();
 
   const { loading, error, product } = useSelector(
@@ -13,12 +18,12 @@ const ProductInfo = ({ match }) => {
   );
 
   useEffect(() => {
-    dispatch(getProductDetails(match.params.id));
+    dispatch(fetchProductDetails(params.id));
 
     if (error) {
       dispatch(handleErrors());
     }
-  }, [dispatch, error, match.params.id]);
+  }, [dispatch, error, params.id]);
 
   return (
     <Fragment>
