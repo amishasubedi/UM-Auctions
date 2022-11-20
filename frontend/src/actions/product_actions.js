@@ -3,6 +3,9 @@ import {
   ALL_PRODUCTS_FETCH,
   ALL_PRODUCTS_FAIL,
   ALL_PRODUCTS_SUCCESS,
+  PRODUCT_DETAILS_FETCH,
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_FAIL,
   CLEAR_ERRORS,
 } from "../reducers/product_constants";
 
@@ -20,6 +23,24 @@ export const getProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ALL_PRODUCTS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DETAILS_FETCH });
+
+    const { data } = await axios.get(`/api/v1/product/${id}`);
+
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
       payload: error.response.data.message,
     });
   }

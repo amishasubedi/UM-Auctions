@@ -15,7 +15,7 @@ exports.registerUser = AsyncErrors(async (req, res, next) => {
     // hardcoded dp for now
     avatar: {
       public_id: "images/actor_ery7iu",
-      url: "https://res.cloudinary.com/dalx1urcp/image/upload/v1668304624/images/actor_ery7iu.png",
+      url: "https://m.media-amazon.com/images/I/41jLl36vt9L._AC_UY218_.jpg",
     },
   });
 

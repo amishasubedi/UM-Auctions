@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./product.css";
 
 const product = ({ product }) => {
+  const imageArray = product.images;
   return (
     <div className="col-sm-12 col-md-6 col-lg-3 my-3">
       <div className="card p-3 rounded">
