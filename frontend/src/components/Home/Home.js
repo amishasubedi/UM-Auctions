@@ -10,9 +10,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   // fetch products to frontend
-  const { loading, products, numberOfProducts, error } = useSelector(
-    (state) => state.products
-  );
+  const { loading, products, error } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProducts());
