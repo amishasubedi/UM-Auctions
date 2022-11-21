@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Pagination from "react-js-pagination";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, handleErrors } from "../../actions/product_actions";
@@ -8,17 +9,23 @@ import "./Home.css";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const setCurrentPageHandler = (page) => {
+    setCurrentPage(page);
+  };
 
   // fetch products to frontend
-  const { loading, products, error } = useSelector((state) => state.products);
+  const { loading, products, error, productsInPage, numberOfProducts } =
+    useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts(currentPage));
 
     if (error) {
       dispatch(handleErrors);
     }
-  }, [dispatch]);
+  }, [dispatch, error, currentPage]);
 
   return (
     <Fragment>
@@ -36,6 +43,22 @@ const Home = () => {
                 ))}
             </div>
           </section>
+
+          {/* implement pagination */}
+          <div className="d-flex justify-content-center mt-5">
+            <Pagination
+              activePage={currentPage}
+              itemsCountPerPage={productsInPage}
+              totalItemsCount={numberOfProducts}
+              onChange={setCurrentPageHandler}
+              nextPageText={">"}
+              prevPageText={"<"}
+              firstPageText={"<<"}
+              lastPageText={">>"}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
+          </div>
         </Fragment>
       )}
     </Fragment>
