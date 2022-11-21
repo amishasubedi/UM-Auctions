@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { fetchProducts, handleErrors } from "../../actions/product_actions";
 import Product from "../BidItems/product";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import "./Home.css";
 
 const Home = () => {
+  const params = useParams();
   const [currentPage, setCurrentpage] = useState(1);
   const dispatch = useDispatch();
 
@@ -19,15 +21,17 @@ const Home = () => {
   const { loading, products, numberOfProducts, error, productsInPage } =
     useSelector((state) => state.products);
 
+  const keyword = params.keyword;
+
   // load the component only when the given dependency changes
   useEffect(() => {
     console.log(products);
-    dispatch(fetchProducts(currentPage));
+    dispatch(fetchProducts(keyword, currentPage));
 
     if (error) {
       dispatch(handleErrors);
     }
-  }, [dispatch, error, currentPage]);
+  }, [dispatch, error, currentPage, keyword]);
 
   return (
     <Fragment>

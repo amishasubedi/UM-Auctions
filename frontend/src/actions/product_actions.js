@@ -10,13 +10,15 @@ import {
 } from "../reducers/product_constants";
 
 export const fetchProducts =
-  (currentPage = 0) =>
+  (keyword = "", currentPage = 0) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_PRODUCTS_FETCH }); // all product req which will set loading to true, and eproduct to an empty array
 
       // fetch data from backend
-      const { data } = await axios.get(`/api/v1/products?page=${currentPage}`);
+      const { data } = await axios.get(
+        `/api/v1/products?keyword=${keyword}&page=${currentPage}`
+      );
 
       dispatch({
         type: ALL_PRODUCTS_SUCCESS,
