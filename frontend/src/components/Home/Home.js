@@ -6,11 +6,16 @@ import { useParams } from "react-router-dom";
 import { fetchProducts, handleErrors } from "../../actions/product_actions";
 import Product from "../BidItems/product";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 import "./Home.css";
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
 
 const Home = () => {
   const params = useParams();
   const [currentPage, setCurrentpage] = useState(1);
+  const [price, setPrice] = useState([1, 1000]);
   const dispatch = useDispatch();
 
   // page number of items
@@ -26,12 +31,12 @@ const Home = () => {
   // load the component only when the given dependency changes
   useEffect(() => {
     console.log(products);
-    dispatch(fetchProducts(keyword, currentPage));
+    dispatch(fetchProducts(keyword, currentPage, price));
 
     if (error) {
       dispatch(handleErrors);
     }
-  }, [dispatch, error, currentPage, keyword]);
+  }, [dispatch, error, currentPage, keyword, price]);
 
   return (
     <Fragment>
