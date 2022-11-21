@@ -46,14 +46,15 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
     // fetch details for each product
     case PRODUCT_DETAILS_FETCH:
       return {
-        ...state,
         loading: true,
+        ...state,
       };
 
     case PRODUCT_DETAILS_SUCCESS:
       return {
         loading: false,
         product: action.payload,
+        productId: action.payload.id,
       };
 
     case PRODUCT_DETAILS_FAIL:

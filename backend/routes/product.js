@@ -13,7 +13,7 @@ const {
 const { isAuthenticated, assignRole } = require("../middlewares/auth");
 
 router.route("/products").get(getProducts); // get - extracts product from db
-router.route("/products/:id").get(getSingleProduct);
+router.route("/product/:id").get(getSingleProduct);
 router.route("/products/new").post(isAuthenticated, newProduct); // post -> add data to db
 router.route("/products/:id").put(isAuthenticated, updateProduct); // put -> to edit data
 
