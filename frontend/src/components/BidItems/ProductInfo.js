@@ -1,24 +1,26 @@
-import React, { useEffect, Fragment } from "react";
-import { Carousel } from "react-bootstrap";
-
+import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails, handleErrors } from "../../actions/product_actions";
+import { useParams } from "react-router";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { Carousel } from "react-bootstrap";
+import { getProductDetails, handleErrors } from "../../actions/product_actions";
+import "./ProductInfo.css";
 
-const ProductInfo = ({ match }) => {
+const ProductInfo = () => {
   const dispatch = useDispatch();
+  const params = useParams();
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
 
   useEffect(() => {
-    dispatch(getProductDetails(match.params.id));
+    dispatch(getProductDetails(params.id));
 
     if (error) {
       dispatch(handleErrors());
     }
-  }, [dispatch, error, match.params.id]);
+  }, [dispatch, params.id, error]);
 
   return (
     <Fragment>
@@ -28,12 +30,14 @@ const ProductInfo = ({ match }) => {
         <Fragment>
           <div className="row f-flex justify-content-around">
             <div className="col-12 col-lg-5 img-fluid" id="product_image">
+              {/* to handle multiple images */}
               <Carousel pause="hover">
                 {product.images &&
                   product.images.map((image) => (
                     <Carousel.Item key={image.public_id}>
                       <img
-                        className="d-block w-100"
+                        id="product_image"
+                        className="d-block"
                         src={image.url}
                         alt={product.title}
                       />
@@ -54,11 +58,11 @@ const ProductInfo = ({ match }) => {
                   style={{ width: `${(product.ratings / 5) * 100}%` }}
                 ></div>
               </div>
-              <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
+              <span id="no_of_reviews">{product.numOfReviews} Reviews</span>
 
               <hr />
 
-              <p id="product_price">${product.price}</p>
+              <p id="product_price">{product.price}</p>
               <div className="stockCounter d-inline">
                 <span className="btn btn-danger minus">-</span>
 
@@ -76,19 +80,13 @@ const ProductInfo = ({ match }) => {
                 id="cart_btn"
                 className="btn btn-primary d-inline ml-4"
               >
-                Add to Cart
+                Bid
               </button>
 
               <hr />
 
               <p>
-                Status:
-                <span
-                  id="stock_status"
-                  className={product.stock > 0 ? "greenColor" : "redColor"}
-                >
-                  {product.stock > 0 ? "In Stock" : "Out of Stock"}
-                </span>
+                Status: <span id="stock_status">Available to Bid</span>
               </p>
 
               <hr />
@@ -96,9 +94,7 @@ const ProductInfo = ({ match }) => {
               <h4 className="mt-2">Description:</h4>
               <p>{product.description}</p>
               <hr />
-              <p id="product_seller mb-3">
-                Sold by: <strong>{product.seller}</strong>
-              </p>
+              <p id="product_seller mb-3">Sold by: {product.seller}</p>
 
               <button
                 id="review_btn"
