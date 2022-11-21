@@ -9,30 +9,32 @@ import {
   CLEAR_ERRORS,
 } from "../reducers/product_constants";
 
-export const getProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_PRODUCTS_FETCH }); // all product req which will set loading to true, and eproduct to an empty array
+export const getProducts =
+  (currentPage = 1) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ALL_PRODUCTS_FETCH }); // all product req which will set loading to true, and eproduct to an empty array
 
-    // fetch data from backend
-    const { data } = await axios.get("/api/v1/products");
+      // fetch data from backend
+      const { data } = await axios.get(`/api/v1/products?page=${currentPage}`);
 
-    dispatch({
-      type: ALL_PRODUCTS_SUCCESS,
-      payload: data, // pass the fetched data in payload
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_PRODUCTS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: ALL_PRODUCTS_SUCCESS,
+        payload: data, // pass the fetched data in payload
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_PRODUCTS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_FETCH });
 
-    const { data } = await axios.get(`/api/v1/product/${id}`);
+    const { data } = await axios.get(`/api/v1/product/${id}?page`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,

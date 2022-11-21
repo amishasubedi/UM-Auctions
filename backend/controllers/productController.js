@@ -15,12 +15,12 @@ exports.newProduct = AsyncErrors(async (req, res, next) => {
 
 // display all product
 exports.getProducts = AsyncErrors(async (req, res, next) => {
-  //const productsInPage = 8;
+  const productsInPage = 8;
   const numberOfProducts = await Product.countDocuments();
   const apiProduct = new APIProduct(Product.find(), req.query)
     .search()
-    .filter();
-  //.pagination(productsInPage);
+    .filter()
+    .pagination(productsInPage);
 
   //const products = await Product.find();
   const products = await apiProduct.query;
