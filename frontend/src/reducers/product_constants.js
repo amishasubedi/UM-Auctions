@@ -10,6 +10,11 @@ export const PRODUCT_DETAILS_SUCCESS = "PRODUCT_DETAILS_SUCCESS";
 export const PRODUCT_DETAILS_FAIL = "PRODUCT_DETAILS_FAIL";
 
 // user constants
+
+export const REGISTER_FETCH = "LOGIN_FETCH";
+export const REGISTER_SUCCESS = "LOGIN_SUCCESS";
+export const REGISTER_FAIL = "LOGIN_FAIL";
+
 export const LOGIN_FETCH = "LOGIN_FETCH";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
