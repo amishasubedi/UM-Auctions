@@ -1,5 +1,6 @@
 import React from "react";
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import ProductSearch from "../BidItems/ProductSearch";
 import "./Header.css";
 
@@ -18,9 +19,9 @@ const Header = () => {
         </div>
 
         <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-          <button className="btn" id="login_btn">
+          <Link to="/login" className="btn" id="login_btn">
             Login
-          </button>
+          </Link>
 
           <span id="cart" className="ml-3">
             Cart
