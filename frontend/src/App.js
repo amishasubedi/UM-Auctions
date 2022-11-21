@@ -5,6 +5,7 @@ import ProductInfo from "./components/BidItems/ProductInfo";
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/Auth/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" element={<Home />} exact />
         <Route path="/products/:keyword" element={<Home />} />
         <Route exact path="/product/:id" element={<ProductInfo />} />
+        <Route exact path="/login" element={<Login />} exact />
       </Routes>
       <Footer />
     </Router>
