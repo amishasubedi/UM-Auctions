@@ -4,10 +4,13 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, handleErrors } from "../../actions/product_actions";
 import Product from "../BidItems/product";
+import { useParams } from "react-router";
+
 import LoadingSpinner from "../UI/LoadingSpinner";
 import "./Home.css";
 
 const Home = () => {
+  const params = useParams();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -19,13 +22,15 @@ const Home = () => {
   const { loading, products, error, productsInPage, numberOfProducts } =
     useSelector((state) => state.products);
 
+  const keyword = params.id;
+
   useEffect(() => {
-    dispatch(getProducts(currentPage));
+    dispatch(getProducts(keyword, currentPage));
 
     if (error) {
       dispatch(handleErrors);
     }
-  }, [dispatch, error, currentPage]);
+  }, [dispatch, error, keyword, currentPage]);
 
   return (
     <Fragment>

@@ -12,6 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/" element={<Home />} exact />
+        <Route path="/products/:keyword" element={<Home />} />
         <Route exact path="/product/:id" element={<ProductInfo />} />
       </Routes>
       <Footer />
