@@ -50,9 +50,10 @@ const Header = () => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <figure>
-                  <div>Welcome {user && user.name}</div>
-                </figure>
+                <div>
+                  <div>Hello {user && user.name}</div>
+                  <span>Accounts&List</span>
+                </div>
               </Link>{" "}
               {/* // create drop down menu for user */}
               <div
