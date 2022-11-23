@@ -6,11 +6,21 @@ import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import { loadUsers } from "./redux/actions/user_actions";
 import store from "./redux/store/store";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
+import UserProfile from "./components/User/UserProfile";
+import PrivRoute from "./components/Auth/PrivRoute";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
+
   useEffect(() => {
     store.dispatch(loadUsers());
   }, []);
@@ -24,6 +34,20 @@ function App() {
         <Route exact path="/product/:id" element={<ProductInfo />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
+        <Route
+          path="/myProfile"
+          element={
+            isAuthenticated ? <UserProfile /> : <Navigate replace to="/login" />
+          }
+        />
+        <Route
+          path="/myProfile"
+          element={
+            <PrivRoute>
+              <UserProfile />
+            </PrivRoute>
+          }
+        />
       </Routes>
       <Footer />
     </Router>
