@@ -19,7 +19,7 @@ const Login = () => {
   // useeffect hook
   useEffect(() => {
     {
-      isAuthenticated && navigate("/login");
+      isAuthenticated && navigate("/");
     }
     {
       error && dispatch(handleErrors());
