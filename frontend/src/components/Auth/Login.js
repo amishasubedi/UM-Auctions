@@ -19,12 +19,12 @@ const Login = () => {
   // useeffect hook
   useEffect(() => {
     {
-      isAuthenticated && navigate("/");
+      isAuthenticated && navigate("/login");
     }
     {
       error && dispatch(handleErrors());
     }
-  }, [dispatch, error, isAuthenticated]);
+  }, [dispatch, error, isAuthenticated, navigate]);
 
   const submitHandler = (event) => {
     event.preventDefault();
