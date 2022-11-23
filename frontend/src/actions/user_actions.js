@@ -3,11 +3,35 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   REGISTER_FETCH,
+  LOAD_USERS_FAIL,
+  LOAD_USERS_FETCH,
+  LOAD_USERS_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   CLEAR_ERRORS,
 } from "../reducers/product_constants";
 import axios from "axios";
+
+export const loadUsers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: LOAD_USERS_FETCH,
+    });
+
+    // send request to backend
+    const { data } = await axios.get("/api/v1/user");
+
+    dispatch({
+      type: LOAD_USERS_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOAD_USERS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const loginUser = (email, password) => async (dispatch) => {
   try {
@@ -23,7 +47,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
     // fetch
     const { data } = await axios.post(
-      "api/v1/login",
+      "/api/v1/login",
       { email, password },
       config
     );
@@ -55,7 +79,7 @@ export const signupUser = (userDetails) => async (dispatch) => {
     };
 
     // fetch
-    const { data } = await axios.post("api/v1/register", userDetails, config);
+    const { data } = await axios.post("/api/v1/register", userDetails, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
