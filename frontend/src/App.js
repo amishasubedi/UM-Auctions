@@ -5,6 +5,7 @@ import ProductInfo from "./components/BidItems/ProductInfo";
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import { loadUsers } from "./redux/actions/user_actions";
+import EditProfile from "./components/User/EditProfile";
 import store from "./redux/store/store";
 import {
   BrowserRouter as Router,
@@ -40,6 +41,18 @@ function App() {
             isAuthenticated ? <UserProfile /> : <Navigate replace to="/login" />
           }
         />
+        <Route
+          path="/myProfile/update"
+          element={
+            isAuthenticated ? <EditProfile /> : <Navigate replace to="/login" />
+          }
+        />
+        {/* <Route
+          path="/profile/update"
+          element={
+            isAuthenticated ? <EditProfile /> : <Navigate replace to="/login" />
+          } */}
+        {/* /> */}
         {/* <Route
           path="/myProfile"
           element={

@@ -85,7 +85,7 @@ export const editProfileReducer = (state = {}, action) => {
       return {
         ...state,
         loading: false,
-        isUpdated: action.payload,
+        isUpdated: true,
       };
 
     case EDIT_PROFILE_FAIL:

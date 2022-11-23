@@ -25,7 +25,7 @@ const Signup = () => {
   // useeffect hook
   useEffect(() => {
     {
-      isAuthenticated && navigate("/");
+      isAuthenticated ? navigate("/") : navigate("/register");
     }
     {
       error && dispatch(handleErrors());

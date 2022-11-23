@@ -8,7 +8,7 @@ const reducer = combineReducers({
   products: productReducer,
   productDetails: productDetailsReducer,
   auth: authReducer,
-  userInfo: editProfileReducer,
+  user: editProfileReducer,
 });
 
 let initialState = {};
