@@ -2,6 +2,9 @@ import {
   LOGIN_FETCH,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOAD_USERS_FAIL,
+  LOAD_USERS_FETCH,
+  LOAD_USERS_SUCCESS,
   CLEAR_ERRORS,
   REGISTER_FETCH,
   REGISTER_SUCCESS,
@@ -10,8 +13,10 @@ import {
 
 export const authReducer = (state = { user: {} }, action) => {
   switch (action.type) {
+    // case to make request to backend
     case LOGIN_FETCH:
     case REGISTER_FETCH:
+    case LOAD_USERS_FETCH:
       return {
         loading: true,
         isAuthenticated: false,
@@ -19,6 +24,7 @@ export const authReducer = (state = { user: {} }, action) => {
 
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
+    case LOAD_USERS_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -27,6 +33,7 @@ export const authReducer = (state = { user: {} }, action) => {
       };
     case LOGIN_FAIL:
     case REGISTER_FAIL:
+    case LOAD_USERS_FAIL:
       return {
         ...state,
         loading: false,
