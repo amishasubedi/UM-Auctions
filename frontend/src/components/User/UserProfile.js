@@ -18,7 +18,7 @@ const UserProfile = () => {
             <div className="row justify-content-around mt-5 user-info">
               <div className="col-12 col-md-3">
                 <Link
-                  to="/profile/update"
+                  to="/myProfile/update"
                   id="edit_profile"
                   className="btn btn-primary btn-block my-5"
                 >
