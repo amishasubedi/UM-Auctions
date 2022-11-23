@@ -15,10 +15,16 @@ export const LOAD_USERS_FETCH = "LOAD_USERS_FETCH";
 export const LOAD_USERS_SUCCESS = "LOAD_USERS_SUCCESS";
 export const LOAD_USERS_FAIL = "LOAD_USERS_FAIL";
 
+// signup
 export const REGISTER_FETCH = "LOGIN_FETCH";
 export const REGISTER_SUCCESS = "LOGIN_SUCCESS";
 export const REGISTER_FAIL = "LOGIN_FAIL";
 
+// login
 export const LOGIN_FETCH = "LOGIN_FETCH";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
+
+// logout
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_FAIL = "LOGOUT_FAIL";

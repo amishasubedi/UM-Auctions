@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import { Carousel } from "react-bootstrap";
-import { getProductDetails, handleErrors } from "../../actions/product_actions";
+import {
+  getProductDetails,
+  handleErrors,
+} from "../../redux/actions/product_actions";
 import "./ProductInfo.css";
 
 const ProductInfo = () => {
