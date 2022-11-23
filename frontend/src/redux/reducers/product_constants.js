@@ -28,3 +28,9 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 // logout
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAIL = "LOGOUT_FAIL";
+
+//update user's password
+export const EDIT_PROFILE_FETCH = "EDIT_PROFILE_FETCH";
+export const EDIT_PROFILE_SUCCESS = "EDIT_PROFILE_SUCCESS";
+export const EDIT_PROFILE_FAIL = "EDIT_PROFILE_FAIL";
+export const EDIT_PROFILE_RESET = "EDIT_PROFILE_RESET";

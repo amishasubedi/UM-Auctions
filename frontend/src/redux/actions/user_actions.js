@@ -11,6 +11,9 @@ import {
   CLEAR_ERRORS,
   LOGOUT_FAIL,
   LOGOUT_SUCCESS,
+  EDIT_PROFILE_FETCH,
+  EDIT_PROFILE_SUCCESS,
+  EDIT_PROFILE_FAIL,
 } from "../reducers/product_constants";
 import axios from "axios";
 
@@ -83,7 +86,6 @@ export const logoutUser = () => async (dispatch) => {
 };
 
 // signup
-
 export const signupUser = (userDetails) => async (dispatch) => {
   try {
     dispatch({
@@ -106,6 +108,38 @@ export const signupUser = (userDetails) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// edit user profile
+export const editProfile = (userDetails) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EDIT_PROFILE_FETCH,
+    });
+
+    const config = {
+      header: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    // fetch
+    const { data } = await axios.put(
+      "/api/v1/edit/profile",
+      userDetails,
+      config
+    );
+
+    dispatch({
+      type: EDIT_PROFILE_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: EDIT_PROFILE_FAIL,
       payload: error.response.data.message,
     });
   }

@@ -11,6 +11,10 @@ import {
   REGISTER_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
+  EDIT_PROFILE_SUCCESS,
+  EDIT_PROFILE_FETCH,
+  EDIT_PROFILE_FAIL,
+  EDIT_PROFILE_RESET,
 } from "./product_constants";
 
 export const authReducer = (state = { user: {} }, action) => {
@@ -62,6 +66,39 @@ export const authReducer = (state = { user: {} }, action) => {
       return {
         ...state,
         error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+// edit user's profile
+export const editProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_PROFILE_FETCH:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+
+    case EDIT_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case EDIT_PROFILE_RESET:
+      return {
+        ...state,
+        isUpdated: false,
       };
     default:
       return state;

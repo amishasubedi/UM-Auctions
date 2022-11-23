@@ -40,14 +40,14 @@ function App() {
             isAuthenticated ? <UserProfile /> : <Navigate replace to="/login" />
           }
         />
-        <Route
+        {/* <Route
           path="/myProfile"
           element={
             <PrivRoute>
               <UserProfile />
             </PrivRoute>
           }
-        />
+        /> */}
       </Routes>
       <Footer />
     </Router>
