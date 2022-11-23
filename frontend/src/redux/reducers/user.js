@@ -9,6 +9,8 @@ import {
   REGISTER_FETCH,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
 } from "./product_constants";
 
 export const authReducer = (state = { user: {} }, action) => {
@@ -30,6 +32,20 @@ export const authReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: true,
         user: action.payload,
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        isAuthenticated: false,
+        user: null,
+        error: action.payload,
+      };
+
+    case LOGOUT_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
     case LOGIN_FAIL:
     case REGISTER_FAIL:

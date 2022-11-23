@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { signupUser, handleErrors } from "../../actions/user_actions";
+import { signupUser, handleErrors } from "../../redux/actions/user_actions";
 import "./Signup.css";
 
 const Signup = () => {

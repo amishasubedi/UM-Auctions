@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, handleErrors } from "../../actions/product_actions";
+import { getProducts, handleErrors } from "../../redux/actions/product_actions";
 import Product from "../BidItems/product";
 import { useParams } from "react-router";
 

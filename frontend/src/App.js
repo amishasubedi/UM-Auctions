@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import ProductInfo from "./components/BidItems/ProductInfo";
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
-import { loadUsers } from "./actions/user_actions";
+import { loadUsers } from "./redux/actions/user_actions";
 import store from "./store/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Auth/Login";

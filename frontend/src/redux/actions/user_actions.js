@@ -9,6 +9,8 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   CLEAR_ERRORS,
+  LOGOUT_FAIL,
+  LOGOUT_SUCCESS,
 } from "../reducers/product_constants";
 import axios from "axios";
 
@@ -59,6 +61,22 @@ export const loginUser = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// logout user
+export const logoutUser = () => async (dispatch) => {
+  try {
+    await axios.get("/api/v1/logout");
+
+    dispatch({
+      type: LOGOUT_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGOUT_FAIL,
       payload: error.response.data.message,
     });
   }
