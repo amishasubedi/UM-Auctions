@@ -73,6 +73,10 @@ const Header = () => {
                 <Link className="dropdown-item" to="/myprofile">
                   Profile
                 </Link>
+
+                <Link className="dropdown-item" to="/new/auction">
+                  Auction
+                </Link>
                 <Link
                   className="dropdown-item text-danger"
                   to="/"
