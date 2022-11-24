@@ -36,6 +36,8 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
         <Route
+          exact
+          path
           path="/myProfile"
           element={
             isAuthenticated ? <UserProfile /> : <Navigate replace to="/login" />
