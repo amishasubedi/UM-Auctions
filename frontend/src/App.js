@@ -18,6 +18,7 @@ import Signup from "./components/Auth/Signup";
 import UserProfile from "./components/User/UserProfile";
 import PrivRoute from "./components/Auth/PrivRoute";
 import { useSelector } from "react-redux";
+import UpdatePassword from "./components/User/UpdatePassword";
 
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
@@ -49,20 +50,8 @@ function App() {
             isAuthenticated ? <EditProfile /> : <Navigate replace to="/login" />
           }
         />
-        {/* <Route
-          path="/profile/update"
-          element={
-            isAuthenticated ? <EditProfile /> : <Navigate replace to="/login" />
-          } */}
-        {/* /> */}
-        {/* <Route
-          path="/myProfile"
-          element={
-            <PrivRoute>
-              <UserProfile />
-            </PrivRoute>
-          }
-        /> */}
+
+        <Route exact path="/password/update" element={<UpdatePassword />} />
       </Routes>
       <Footer />
     </Router>

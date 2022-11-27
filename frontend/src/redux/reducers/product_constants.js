@@ -29,8 +29,14 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAIL = "LOGOUT_FAIL";
 
-//update user's password
+//update user's profile
 export const EDIT_PROFILE_FETCH = "EDIT_PROFILE_FETCH";
 export const EDIT_PROFILE_SUCCESS = "EDIT_PROFILE_SUCCESS";
 export const EDIT_PROFILE_FAIL = "EDIT_PROFILE_FAIL";
 export const EDIT_PROFILE_RESET = "EDIT_PROFILE_RESET";
+
+//update user's password
+export const UPDATE_PASSWORD_FETCH = "UPDATE_PASSWORD_FETCH";
+export const UPDATE_PASSWORD_SUCCESS = "UPDATE_PASSWORD_SUCCESS";
+export const UPDATE_PASSWORD_FAIL = "UPDATE_PASSWORD_FAIL";
+export const UPDATE_PASSWORD_RESET = "UPDATE_PASSWORD_RESET";

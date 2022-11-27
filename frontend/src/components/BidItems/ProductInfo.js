@@ -40,7 +40,12 @@ const ProductInfo = () => {
                 <hr />
               </div>
               <p>
-                Status: <span id="stock_status">Available to Bid</span>
+                Status:{" "}
+                <span id="stock_status">
+                  {product.stock > 0
+                    ? "Available to bid"
+                    : "Bid Ended for this product"}
+                </span>
               </p>
               {/* to handle multiple images */}
               <Carousel pause="hover">
@@ -70,22 +75,26 @@ const ProductInfo = () => {
               Last Bid: $ {product.price}
             </p>
 
-            <div className="row mt-3 ">
-              <div className="rating w-50 mt-3"></div>
-              <div className="form">
-                <label htmlFor="email_field">Your bid ($)</label>
-                <input
-                  type="number"
-                  id="bid_field"
-                  className="content"
-                  name="name"
-                />
-                <p className="paragraph">{`(Enter ${
-                  product.price + 1
-                } or more)`}</p>
+            {product.stock > 0 && (
+              <div className="row mt-3 ">
+                <div className="rating w-50 mt-3"></div>
+                <div className="form">
+                  <label htmlFor="email_field">Your bid ($)</label>
+                  <input
+                    type="number"
+                    id="bid_field"
+                    className="content"
+                    name="name"
+                  />
+                  <p className="paragraph">{`(Enter ${
+                    product.price + 1
+                  } or more)`}</p>
+                </div>
               </div>
-            </div>
-            <hr />
+            )}
+
+            <p>Bid Start: {product.bidStart}</p>
+            <p>Bid End: {product.bidEnd}</p>
           </div>
         </Fragment>
       )}

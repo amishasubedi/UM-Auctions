@@ -14,6 +14,7 @@ const {
   userDetails,
   updateProfile,
   deleteUser,
+  getUserById,
 } = require("../controllers/userController");
 
 const { isAuthenticated, assignRole } = require("../middlewares/auth");
@@ -28,6 +29,7 @@ router.route("/edit/profile").put(isAuthenticated, editProfile);
 router.route("/user").get(isAuthenticated, getUserProfile);
 router.route("/password/reset/:token").put(resetPassword);
 router.route("/logout").get(logout);
+router.route("/user/:id").get(getUserById);
 
 // Admin
 router

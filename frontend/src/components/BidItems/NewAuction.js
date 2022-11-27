@@ -1,7 +1,42 @@
 import { Fragment } from "react";
-import Auction from "./Auction";
 
 const NewAuction = () => {
+  const currentDate = new Date();
+  const defaultStartTime = getDateString(currentDate);
+  const defaultEndTime = getDateString(
+    new Date(currentDate.setHours(currentDate.getHours() + 1))
+  );
+
+  const getDateString = (date) => {
+    let year = date.getFullYear();
+    let day =
+      date.getDate().toString().length === 1
+        ? "0" + date.getDate()
+        : date.getDate();
+    let month =
+      date.getMonth().toString().length === 1
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
+    let hours =
+      date.getHours().toString().length === 1
+        ? "0" + date.getHours()
+        : date.getHours();
+    let minutes =
+      date.getMinutes().toString().length === 1
+        ? "0" + date.getMinutes()
+        : date.getMinutes();
+    let dateString = `${year}-${month}-${day}T${hours}:${minutes}`;
+    return dateString;
+  };
+
+  if (values.bidEnd < values.bidStart) {
+    setValues({ ...values, error: "Auction cannot end before it starts" });
+  }
+
+  const handleChange = (name) => (event) => {
+    const value = name === "image" ? event.target.files[0] : event.target.value;
+    setValues({ ...values, [name]: value });
+  };
   return (
     <Fragment>
       <div className="row wrapper">
@@ -17,24 +52,20 @@ const NewAuction = () => {
             <div className="form-group">
               <label htmlFor="email_field">Name</label>
               <input
-                type="name"
-                id="name_field"
-                className="form-control"
-                name="name"
-                value={name}
-                onChange={nameChangeHandler}
+                label="Auction Start Time"
+                type="datetime-local"
+                defaultValue={defaultStartTime}
+                onChange={handleChange("bidStart")}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="email_field">Description</label>
               <input
-                type="description"
-                id="description_field"
-                className="form-control"
-                name="description"
-                value={description}
-                onChange={descriptionChangeHandler}
+                label="Auction End Time"
+                type="datetime-local"
+                defaultValue={defaultEndTime}
+                onChange={handleChange("bidEnd")}
               />
             </div>
 
