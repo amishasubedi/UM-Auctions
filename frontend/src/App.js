@@ -1,54 +1,69 @@
+import React, { useEffect } from "react";
 import "./App.css";
-import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Cart from "./pages/Cart";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import ProductList from "./pages/ProductList";
-import ProductDetail from "./pages/ProductDetail";
-import UserProfile from "./pages/user/UserProfile";
-import OrderDetails from "./pages/user/OrderDetails";
-import UserOrder from "./pages/user/UserOrder";
-import ProtectedRoutes from "./components/ProtectedRoutes";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import UserChatRoutes from "./components/user/UserChatRoutes";
+import Home from "./components/Home/Home";
+import ProductInfo from "./components/BidItems/ProductInfo";
+import Footer from "./components/Layout/Footer";
+import Header from "./components/Layout/Header";
+import { loadUsers } from "./redux/actions/user_actions";
+import EditProfile from "./components/User/EditProfile";
+import store from "./redux/store/store";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
+import UserProfile from "./components/User/UserProfile";
+import PrivRoute from "./components/Auth/PrivRoute";
+import { useSelector } from "react-redux";
+import UpdatePassword from "./components/User/UpdatePassword";
+import NewAuction from "./components/BidItems/NewAuction";
+import MyBid from "./components/BidItems/MyBid";
+import Admin from "./components/admin/Admin";
+import AllUsers from "./components/User/AllUsers";
 
 function App() {
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    store.dispatch(loadUsers());
+  }, []);
+
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
       <Routes>
-        <Route element={<UserChatRoutes />}>
-          <Route path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/products/:keyword" element={<Home />} />
+        <Route exact path="/product/:id" element={<ProductInfo />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Signup />} />
+        <Route
+          exact
+          path
+          path="/myProfile"
+          element={
+            isAuthenticated ? <UserProfile /> : <Navigate replace to="/login" />
+          }
+        />
+        <Route
+          path="/myProfile/update"
+          element={
+            isAuthenticated ? <EditProfile /> : <Navigate replace to="/login" />
+          }
+        />
 
-          <Route path="/cart" element={<Cart />} />
-
-          <Route path="/login" element={<Login />} />
-
-          <Route path="/register" element={<Register />} />
-
-          <Route path="/list" element={<ProductList />} />
-
-          <Route path="/detail" element={<ProductDetail />} />
-
-          <Route path="*" element="Page not found" />
-
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/user" element={<UserProfile />} />
-
-            <Route path="/user/order-details" element={<OrderDetails />} />
-
-            <Route path="/usercart" element={<userCart />} />
-
-            <Route path="/user/order" element={<UserOrder />} />
-          </Route>
-        </Route>
-
-        {/* admin pages */}
+        <Route exact path="/password/update" element={<UpdatePassword />} />
+        <Route exact path="/new/auction" element={<NewAuction />} />
+        <Route exact path="/orders/myOrder" element={<MyBid />} />
+        <Route exact path="/dashboard" element={<Admin />} />
+        <Route path="/admin/products" element={<Home />} />
+        <Route path="/all/users" element={<AllUsers />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
 }
 
