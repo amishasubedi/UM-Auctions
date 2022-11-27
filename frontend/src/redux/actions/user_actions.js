@@ -14,6 +14,9 @@ import {
   EDIT_PROFILE_FETCH,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  UPDATE_PASSWORD_FETCH,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
 } from "../reducers/product_constants";
 import axios from "axios";
 
@@ -121,7 +124,7 @@ export const editProfile = (userDetails) => async (dispatch) => {
     });
 
     const config = {
-      header: {
+      headers: {
         "Content-Type": "multipart/form-data",
       },
     };
@@ -140,6 +143,37 @@ export const editProfile = (userDetails) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EDIT_PROFILE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updatePassword = (passwords) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UPDATE_PASSWORD_FETCH,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // fetch
+    const { data } = await axios.put(
+      "/api/v1/update/password",
+      passwords,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_PASSWORD_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
       payload: error.response.data.message,
     });
   }

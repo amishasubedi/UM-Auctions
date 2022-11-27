@@ -60,6 +60,39 @@ exports.logout = AsyncErrors(async (req, res, next) => {
   });
 });
 
+// api/v1/user/:id
+exports.getUserById = AsyncErrors(async (req, res, next, id) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new ErrorHandler("User not found", 400));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+/*exports.getSingleProduct = AsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+    // res.status(404).json({
+    //   success: false,
+    //   message: "Product not found",
+    // });
+  }
+
+  // if product is found
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+*/
+
 // forgot password
 exports.forgotPassword = AsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });

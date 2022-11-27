@@ -30,7 +30,7 @@ const EditProfile = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { isUpdated, error, loading } = useSelector((state) => state.user);
+  const { error, isUpdated, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (user) {
@@ -40,10 +40,12 @@ const EditProfile = () => {
     }
 
     if (error) {
+      alert("Error occured");
       dispatch(handleErrors());
     }
 
     if (isUpdated) {
+      alert("User Updated Successfully");
       dispatch(loadUsers());
 
       navigate("/myProfile");
@@ -57,12 +59,12 @@ const EditProfile = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const NewData = new NewData();
-    NewData.set("name", name);
-    NewData.set("email", email);
-    NewData.set("address", address);
+    const formData = new FormData();
+    formData.set("name", name);
+    formData.set("email", email);
+    formData.set("address", address);
 
-    dispatch(editProfile(NewData));
+    dispatch(editProfile(formData));
   };
 
   return (
@@ -71,7 +73,7 @@ const EditProfile = () => {
         <div className="col-10 col-lg-5">
           <form
             className="shadow-lg"
-            // onSubmit={submitHandler}
+            onSubmit={submitHandler}
             encType="multipart/form-data"
             onSubmit={submitHandler}
           >
@@ -117,7 +119,6 @@ const EditProfile = () => {
               type="submit"
               className="btn update-btn btn-block mt-4 mb-3"
               disabled={loading ? true : false}
-              //onClick={() => navigate("/myProfile")}
             >
               Update
             </button>
