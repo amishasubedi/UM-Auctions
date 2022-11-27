@@ -15,25 +15,27 @@ exports.newProduct = AsyncErrors(async (req, res, next) => {
 
 // display all product
 exports.getProducts = AsyncErrors(async (req, res, next) => {
-  const productsInPage = 8;
+  const productsInPage = 4;
   const numberOfProducts = await Product.countDocuments();
+
   const apiProduct = new APIProduct(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(productsInPage);
+    .filter();
 
-  //const products = await Product.find();
-  const products = await apiProduct.query;
+  apiProduct.pagination(productsInPage);
 
-  setTimeout(() => {
-    res.status(200).json({
-      success: true,
-      // message: "This route will show all route in database",
-      // count: products.length,
-      numberOfProducts,
-      products,
-    });
-  }, 600);
+  let products = await apiProduct.query;
+  //let filteredProductsCount = products.length;
+
+  //products = await apiProduct.query;
+
+  res.status(200).json({
+    success: true,
+    numberOfProducts,
+    productsInPage,
+    // filteredProductsCount,
+    products,
+  });
 });
 
 // get single product

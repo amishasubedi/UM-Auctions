@@ -1,12 +1,7 @@
-import { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 
 const NewAuction = () => {
-  const currentDate = new Date();
-  const defaultStartTime = getDateString(currentDate);
-  const defaultEndTime = getDateString(
-    new Date(currentDate.setHours(currentDate.getHours() + 1))
-  );
-
   const getDateString = (date) => {
     let year = date.getFullYear();
     let day =
@@ -28,79 +23,104 @@ const NewAuction = () => {
     let dateString = `${year}-${month}-${day}T${hours}:${minutes}`;
     return dateString;
   };
+  const currentDate = new Date();
+  const defaultStartTime = getDateString(currentDate);
+  const defaultEndTime = getDateString(
+    new Date(currentDate.setHours(currentDate.getHours() + 1))
+  );
 
-  if (values.bidEnd < values.bidStart) {
-    setValues({ ...values, error: "Auction cannot end before it starts" });
-  }
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [startingBid, setStartingBid] = useState(0);
+  const [startTime, setStartTime] = useState(defaultStartTime);
+  const [endTime, setEndTime] = useState(defaultEndTime);
 
-  const handleChange = (name) => (event) => {
-    const value = name === "image" ? event.target.files[0] : event.target.value;
-    setValues({ ...values, [name]: value });
-  };
   return (
     <Fragment>
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
-          <form
-            className="shadow-lg"
-            // onSubmit={submitHandler}
-            encType="multipart/form-data"
-            onSubmit={submitHandler}
-          >
-            <h1 className="mt-2 mb-5">Create Auction</h1>
+          <form className="shadow-lg">
+            <h1 className="mb-3">Create Auction</h1>
 
             <div className="form-group">
-              <label htmlFor="email_field">Name</label>
+              <label htmlFor="email_field">Image URL</label>
               <input
-                label="Auction Start Time"
-                type="datetime-local"
-                defaultValue={defaultStartTime}
-                onChange={handleChange("bidStart")}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email_field">Description</label>
-              <input
-                label="Auction End Time"
-                type="datetime-local"
-                defaultValue={defaultEndTime}
-                onChange={handleChange("bidEnd")}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email_field">Auction Start Time</label>
-              <input
-                type="start_time"
-                id="time_field"
+                type="URL"
+                id="image_field"
                 className="form-control"
-                name="start_time"
+                value={image}
+                onChange={(event) => setImage(event.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email_field">Item Name</label>
+              <input
+                type="name "
+                id="name_field"
+                className="form-control"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password_field">Description</label>
+              <input
+                type="description"
+                id="description_field"
+                className="form-control"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password_field">Starting Bid</label>
+              <input
+                type="Number"
+                id="bid_field"
+                className="form-control"
+                value={startingBid}
+                onChange={(event) => setStartingBid(event.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password_field">Auction Start Time</label>
+              <input
+                type="Date"
+                id="bid_field"
+                className="form-control"
                 value={startTime}
-                onChange={timeChangeHandler}
+                onChange={(event) => setStartTime(event.target.value)}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="email_field">Auction End Time</label>
+              <label htmlFor="password_field">Auction End Time</label>
               <input
-                type="end_time"
-                id="time_field"
+                type="Date"
+                id="bid_field"
                 className="form-control"
-                name="end_time"
                 value={endTime}
-                onChange={timeChangeHandler}
+                onChange={(event) => setEndTime(event.target.value)}
               />
             </div>
 
-            <button
+            <Link
+              to="/orders/myOrder"
+              id="submit_button"
               type="submit"
-              className="btn update-btn btn-block mt-4 mb-3"
-              disabled={loading ? true : false}
-              //onClick={() => navigate("/myProfile")}
+              className="btn btn-block py-3"
             >
-              Update
-            </button>
+              SUBMIT
+            </Link>
+
+            <Link to="/" className="float-right mt-3">
+              CANCEL
+            </Link>
           </form>
         </div>
       </div>
@@ -108,4 +128,4 @@ const NewAuction = () => {
   );
 };
 
-export default Auction;
+export default NewAuction;

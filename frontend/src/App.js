@@ -19,6 +19,8 @@ import UserProfile from "./components/User/UserProfile";
 import PrivRoute from "./components/Auth/PrivRoute";
 import { useSelector } from "react-redux";
 import UpdatePassword from "./components/User/UpdatePassword";
+import NewAuction from "./components/BidItems/NewAuction";
+import MyBid from "./components/BidItems/MyBid";
 
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
@@ -52,6 +54,8 @@ function App() {
         />
 
         <Route exact path="/password/update" element={<UpdatePassword />} />
+        <Route exact path="/new/auction" element={<NewAuction />} />
+        <Route exact path="/orders/myOrder" element={<MyBid />} />
       </Routes>
       <Footer />
     </Router>
