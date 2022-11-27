@@ -68,6 +68,11 @@
   margin-right: 10%;
 }
 
+#bid_button {
+  background-color: #febd69;
+  padding: 0.4rem 1.8rem;
+  font-family: calibri;
+}
 .stockCounter input {
   border: none;
   width: 3rem;

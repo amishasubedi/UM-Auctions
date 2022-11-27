@@ -17,6 +17,9 @@ import {
   UPDATE_PASSWORD_FETCH,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_FAIL,
+  ALL_USERS_FETCH,
+  ALL_USERS_SUCCESS,
+  ALL_USERS_FAIL,
 } from "../reducers/product_constants";
 import axios from "axios";
 
@@ -174,6 +177,24 @@ export const updatePassword = (passwords) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const allUsers = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_USERS_FETCH });
+
+    const { data } = await axios.get("/api/v1/admin/users");
+
+    dispatch({
+      type: ALL_USERS_SUCCESS,
+      payload: data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_USERS_FAIL,
       payload: error.response.data.message,
     });
   }

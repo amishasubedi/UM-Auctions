@@ -6,6 +6,9 @@ import {
   PRODUCT_DETAILS_FETCH,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  DELETE_PRODUCT_FETCH,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../reducers/product_constants";
 
@@ -46,6 +49,24 @@ export const getProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_PRODUCT_FETCH });
+
+    const { data } = await axios.delete(`/api/v1/admin/products/${id}`);
+
+    dispatch({
+      type: DELETE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }

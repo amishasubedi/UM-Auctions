@@ -8,6 +8,7 @@ import {
   handleErrors,
 } from "../../redux/actions/product_actions";
 import "./ProductInfo.css";
+import { Link } from "react-router-dom";
 
 const ProductInfo = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,10 @@ const ProductInfo = () => {
       dispatch(handleErrors());
     }
   }, [dispatch, params.id, error]);
+
+  const bidSumbitHandler = () => {
+    alert("Successfully placed the bid");
+  };
 
   return (
     <Fragment>
@@ -68,33 +73,44 @@ const ProductInfo = () => {
               </h4>
               <p>{product.description}</p>
               <hr />
+
+              <h3>Bid Start: {product.bidStart}</h3>
+              <h3>Bid End: {product.bidEnd}</h3>
+
+              <hr />
+
               <p id="product_seller mb-3">Sold by: {product.seller}</p>
             </div>
 
-            <p id="product_price" className="price">
+            <div id="product_price" className="price">
               Last Bid: $ {product.price}
-            </p>
+              {product.stock > 0 && (
+                <div className="row mt-2 ">
+                  <div className="rating w-50 mt-2"></div>
+                  <div className="form">
+                    <label htmlFor="email_field">Your bid ($)</label>
+                    <input
+                      type="number"
+                      id="bid_field"
+                      className="content"
+                      name="name"
+                    />
 
-            {product.stock > 0 && (
-              <div className="row mt-3 ">
-                <div className="rating w-50 mt-3"></div>
-                <div className="form">
-                  <label htmlFor="email_field">Your bid ($)</label>
-                  <input
-                    type="number"
-                    id="bid_field"
-                    className="content"
-                    name="name"
-                  />
-                  <p className="paragraph">{`(Enter ${
-                    product.price + 1
-                  } or more)`}</p>
+                    <Link
+                      to="/"
+                      type="submit"
+                      id="bid_button"
+                      onClick={bidSumbitHandler}
+                    >
+                      Place Bid
+                    </Link>
+                    <p className="paragraph">{`(Enter ${
+                      product.price + 1
+                    } or more)`}</p>
+                  </div>
                 </div>
-              </div>
-            )}
-
-            <p>Bid Start: {product.bidStart}</p>
-            <p>Bid End: {product.bidEnd}</p>
+              )}
+            </div>
           </div>
         </Fragment>
       )}
