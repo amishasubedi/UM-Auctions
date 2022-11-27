@@ -21,6 +21,8 @@ import { useSelector } from "react-redux";
 import UpdatePassword from "./components/User/UpdatePassword";
 import NewAuction from "./components/BidItems/NewAuction";
 import MyBid from "./components/BidItems/MyBid";
+import Admin from "./components/admin/Admin";
+import AllUsers from "./components/User/AllUsers";
 
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
@@ -56,6 +58,9 @@ function App() {
         <Route exact path="/password/update" element={<UpdatePassword />} />
         <Route exact path="/new/auction" element={<NewAuction />} />
         <Route exact path="/orders/myOrder" element={<MyBid />} />
+        <Route exact path="/dashboard" element={<Admin />} />
+        <Route path="/admin/products" element={<Home />} />
+        <Route path="/all/users" element={<AllUsers />} />
       </Routes>
       <Footer />
     </Router>
