@@ -9,6 +9,9 @@ import {
   DELETE_PRODUCT_FETCH,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAIL,
+  ADMIN_PRODUCT_FETCH,
+  ADMIN_PRODUCT_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../reducers/product_constants";
 
@@ -67,6 +70,24 @@ export const deleteProduct = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_PRODUCT_FETCH });
+
+    const { data } = await axios.get(`/api/v1/admin/products`);
+
+    dispatch({
+      type: ADMIN_PRODUCT_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }

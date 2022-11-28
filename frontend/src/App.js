@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import ProductInfo from "./components/BidItems/ProductInfo";
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
-import { loadUsers } from "./redux/actions/user_actions";
+import { loadUsers, loginUser } from "./redux/actions/user_actions";
 import EditProfile from "./components/User/EditProfile";
 import store from "./redux/store/store";
 import {
@@ -23,9 +23,15 @@ import NewAuction from "./components/BidItems/NewAuction";
 import MyBid from "./components/BidItems/MyBid";
 import Admin from "./components/admin/Admin";
 import AllUsers from "./components/User/AllUsers";
+import AllProduct from "./components/admin/AllProduct";
+
+// admin imports
+import Dashboard from "./components/admin/Dashboard";
 
 function App() {
-  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
+  const { isAdmin, isAuthenticated, user, loading } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     store.dispatch(loadUsers());
@@ -58,9 +64,19 @@ function App() {
         <Route exact path="/password/update" element={<UpdatePassword />} />
         <Route exact path="/new/auction" element={<NewAuction />} />
         <Route exact path="/orders/myOrder" element={<MyBid />} />
-        <Route exact path="/dashboard" element={<Admin />} />
-        <Route path="/admin/products" element={<Home />} />
+        {/* <Route path="/admin/products" element={<Home />} /> */}
         <Route path="/all/users" element={<AllUsers />} />
+        <Route
+          path="/dashboard"
+          isAdmin={true}
+          element={isAuthenticated ? <Dashboard /> : <Login />}
+        />
+
+        <Route
+          path="/admin/products"
+          isAdmin={true}
+          element={isAuthenticated ? <AllProduct /> : <Login />}
+        />
       </Routes>
       <Footer />
     </Router>
