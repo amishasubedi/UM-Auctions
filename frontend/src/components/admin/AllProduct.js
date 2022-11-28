@@ -1,7 +1,9 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MDBDataTable } from "mdbreact";
+import { useNavigate } from "react-router";
 import {
+  deleteProduct,
   getAdminProducts,
   handleErrors,
 } from "../../redux/actions/product_actions";
@@ -9,11 +11,16 @@ import Sidebar from "./SideBar";
 
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { DELETE_PRODUCT_RESET } from "../../redux/reducers/product_constants";
 
 const AllProduct = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, error, products } = useSelector((state) => state.products);
+  const { error: deleteError, isDeleted } = useSelector(
+    (state) => state.product
+  );
 
   useEffect(() => {
     dispatch(getAdminProducts());
@@ -21,7 +28,17 @@ const AllProduct = () => {
     if (error) {
       dispatch(handleErrors());
     }
-  }, [dispatch, error]);
+
+    if (deleteError) {
+      dispatch(handleErrors());
+    }
+
+    if (isDeleted) {
+      alert("Sucessfully deleted");
+      navigate("/admin/products");
+      dispatch({ type: DELETE_PRODUCT_RESET });
+    }
+  }, [dispatch, error, isDeleted, navigate]);
 
   const setProducts = () => {
     const data = {
@@ -70,7 +87,7 @@ const AllProduct = () => {
             </Link>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
-              //onClick={() => deleteProductHandler(product._id)}
+              onClick={() => deleteProductHandler(product._id)}
             >
               <i className="fa fa-trash"></i>
             </button>
@@ -80,6 +97,10 @@ const AllProduct = () => {
     });
 
     return data;
+  };
+
+  const deleteProductHandler = (id) => {
+    dispatch(deleteProduct(id));
   };
 
   return (
