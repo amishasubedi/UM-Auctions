@@ -62,9 +62,8 @@ function App() {
         />
 
         <Route exact path="/password/update" element={<UpdatePassword />} />
-        <Route exact path="/new/auction" element={<NewAuction />} />
         <Route exact path="/orders/myOrder" element={<MyBid />} />
-        {/* <Route path="/admin/products" element={<Home />} /> */}
+
         <Route path="/all/users" element={<AllUsers />} />
         <Route
           path="/dashboard"
@@ -77,6 +76,8 @@ function App() {
           isAdmin={true}
           element={isAuthenticated ? <AllProduct /> : <Login />}
         />
+
+        <Route path="/new/auction" element={<NewAuction />} />
       </Routes>
       <Footer />
     </Router>

@@ -29,12 +29,6 @@ const Sidebar = () => {
                     <i className="fas fa-clipboard"></i> All
                   </Link>
                 </li>
-
-                <li>
-                  <Link to="/admin/product">
-                    <i className="fas fa-plus"></i> Create
-                  </Link>
-                </li>
               </ul>
             </li>
 

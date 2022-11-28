@@ -41,9 +41,6 @@ const Signup = () => {
       password: password,
     };
 
-    console.log("request body sign up : ", user);
-    console.log("request body sign up : ", requestBody);
-
     dispatch(signupUser(requestBody));
   };
   return (
