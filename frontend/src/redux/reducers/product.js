@@ -13,6 +13,10 @@ import {
   NEW_PRODUCT_RESET,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  DELETE_PRODUCT_FETCH,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
+  DELETE_PRODUCT_RESET,
 } from "./product_constants";
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -44,6 +48,44 @@ export const productReducer = (state = { products: [] }, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const productChangeReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_PRODUCT_FETCH:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_PRODUCT_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    case DELETE_PRODUCT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
       };
 
     case CLEAR_ERRORS:
