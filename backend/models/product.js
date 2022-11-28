@@ -1,5 +1,34 @@
 const mongoose = require("mongoose");
+const getDateString = (date) => {
+  let year = date.getFullYear();
+  let day =
+    date.getDate().toString().length === 1
+      ? "0" + date.getDate()
+      : date.getDate();
+  let month =
+    date.getMonth().toString().length === 1
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1;
+  let hours =
+    date.getHours().toString().length === 1
+      ? "0" + date.getHours()
+      : date.getHours();
+  let minutes =
+    date.getMinutes().toString().length === 1
+      ? "0" + date.getMinutes()
+      : date.getMinutes();
+  let dateString = `${year}-${month}-${day}T${hours}:${minutes}`;
+  return dateString;
+};
 
+// declare default bidding start time and end time
+const currentDate = new Date();
+const defaultStartTime = getDateString(currentDate);
+const defaultEndTime = getDateString(
+  new Date(currentDate.setHours(currentDate.getHours() + 1))
+);
+
+//const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -7,7 +36,7 @@ const productSchema = new mongoose.Schema({
     trim: true,
     maxLength: [100, "Product name cannot exceed 100 characters"],
   },
-  startingBid: {
+  price: {
     type: Number,
     required: [true, "Please enter product price"],
     maxLength: [5, "Product name cannot exceed 5 characters"],
@@ -16,14 +45,6 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, "Please enter product description"],
-  },
-  bidStart: {
-    type: Date,
-    default: Date.now(),
-  },
-  bidEnd: {
-    type: Date,
-    required: true,
   },
 
   images: [
@@ -48,6 +69,15 @@ const productSchema = new mongoose.Schema({
     required: [true, "Please enter product stock"],
     maxLength: [5, "Product name cannot exceed 5 characters"],
     default: 0,
+  },
+  bidStart: {
+    type: Date,
+    default: defaultStartTime,
+  },
+
+  bidEnd: {
+    type: Date,
+    bidEnd: defaultEndTime,
   },
 
   user: {

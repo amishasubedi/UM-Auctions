@@ -6,34 +6,34 @@ const cloudinary = require("cloudinary");
 
 // create new product
 exports.newProduct = AsyncErrors(async (req, res, next) => {
-  let images = [];
+  // let images = [];
+  // if (typeof req.body.images === "string") {
+  //   images.push(req.body.images);
+  // } else {
+  //   images = req.body.images;
+  // }
 
-  // push the images into an array
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
-  }
+  // let imagesLinks = [];
 
-  let imagesLinks = [];
+  // for (let i = 0; i < images.length; i++) {
+  //   const result = await cloudinary.v2.uploader.upload(images[i], {
+  //     folder: "Products",
+  //   });
 
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "products",
-    });
+  //   imagesLinks.push({
+  //     public_id: result.public_id,
+  //     url: result.secure_url,
+  //   });
+  // }
 
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
-
-  re.body.images = imagesLinks;
-
+  // req.body.images = imagesLinks;
   req.body.user = req.user.id;
+
+  console.log("create auction request body : ", req);
+
   const product = await Product.create(req.body);
 
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     product,
   });

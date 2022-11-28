@@ -100,7 +100,7 @@ export const newProduct = (productData) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
+    console.log("New product fail error message ", error.response);
     dispatch({
       type: NEW_PRODUCT_FAIL,
       payload: error.response.data.message,
