@@ -22,6 +22,15 @@ const auth = require("./routes/auth");
 const orders = require("./routes/order");
 //const auction = require("./routes/auction");
 
+app.set("view engine", "jade");
+
+app.use((err, req, res, next) => {
+  res.locals.error = err;
+  const status = err.status || 500;
+  res.status(status);
+  res.render("error");
+});
+
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
 app.use("/api/v1", orders);
