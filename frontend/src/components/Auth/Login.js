@@ -18,16 +18,16 @@ const Login = () => {
 
   // useeffect hook
   useEffect(() => {
-    {
-      {
-        !isAuthenticated ? navigate("/login") : navigate("/");
-      }
-    }
-    {
-      if (error) {
-        alert("Invalid credentials");
-        dispatch(handleErrors());
-      }
+    // if (isAuthenticated) {
+    //   navigate("/");
+    // } else {
+    //   navigate("/login");
+    // }
+    console.log("is authenticated ? ", isAuthenticated);
+    !isAuthenticated ? navigate("/login") : navigate("/");
+    if (error) {
+      alert("Invalid credentials");
+      dispatch(handleErrors());
     }
   }, [dispatch, error, isAuthenticated, navigate]);
 
