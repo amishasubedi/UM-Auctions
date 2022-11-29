@@ -50,10 +50,15 @@ nav {
 }
 
 #cart_count {
-  background-color: #febd69;
+  background-color: #f5ac4d;
   padding: 0.1rem 0.5rem;
   border-radius: 0.2rem;
   color: black;
   font-weight: bold;
   font-size: 0.9rem;
+}
+
+.dropdown-toggle::after {
+  right: -5px !important;
+  top: 70% !important;
 }
