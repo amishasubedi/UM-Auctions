@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -12,7 +12,10 @@ import { Link } from "react-router-dom";
 
 const ProductInfo = () => {
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
   const params = useParams();
+  const [placed, setPlaced] = useState(false);
+  //const [input, setInput] = useState();
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
@@ -26,8 +29,9 @@ const ProductInfo = () => {
     }
   }, [dispatch, params.id, error]);
 
-  const bidSumbitHandler = () => {
+  const bidSubmitHandler = () => {
     alert("Successfully placed the bid");
+    setPlaced(true);
   };
 
   return (
@@ -74,8 +78,18 @@ const ProductInfo = () => {
               <p>{product.description}</p>
               <hr />
 
-              <h3>Bid Start: {product.bidStart}</h3>
-              <h3>Bid End: {product.bidEnd}</h3>
+              <h3>
+                Bid Start:{" "}
+                {product.bidStart
+                  ? product.bidStart.toString().split("T")[0]
+                  : product.bidStart}
+              </h3>
+              <h3>
+                Bid End:{" "}
+                {product.bidEnd
+                  ? product.bidEnd.toString().split("T")[0]
+                  : product.bidEnd}
+              </h3>
 
               <hr />
 
@@ -83,30 +97,48 @@ const ProductInfo = () => {
             </div>
 
             <div id="product_price" className="price">
-              Last Bid: $ {product.price}
+              Minimum Price: $ {product.price}
               {product.stock > 0 && (
                 <div className="row mt-2 ">
                   <div className="rating w-50 mt-2"></div>
                   <div className="form">
                     <label htmlFor="email_field">Your bid ($)</label>
-                    <input
-                      type="number"
-                      id="bid_field"
-                      className="content"
-                      name="name"
-                    />
+                    <input type="number" id="bid_field" className="content" />
 
-                    <Link
-                      to="/"
+                    <button
                       type="submit"
+                      ref={inputRef}
                       id="bid_button"
-                      onClick={bidSumbitHandler}
+                      onClick={bidSubmitHandler}
                     >
                       Place Bid
-                    </Link>
+                    </button>
                     <p className="paragraph">{`(Enter ${
                       product.price + 1
                     } or more)`}</p>
+
+                    <div> ALL BIDS: </div>
+                    <hr />
+
+                    {setPlaced && (
+                      <span>
+                        `Amisha Bidded ${(product.price + 12).toFixed(2)}
+                      </span>
+                    )}
+                    <hr />
+
+                    <span>
+                      `Test2 Bidded ${(product.price + 12).toFixed(2)}
+                    </span>
+                    <hr />
+                    <span>
+                      `Test2 Bidded ${(product.price + 17).toFixed(2)}
+                    </span>
+                    <hr />
+                    <span>
+                      `SSDSD Bidded ${(product.price + 28).toFixed(2)}
+                    </span>
+                    <hr />
                   </div>
                 </div>
               )}

@@ -25,7 +25,8 @@ const Login = () => {
     // }
     console.log("is authenticated ? ", isAuthenticated);
     !isAuthenticated ? navigate("/login") : navigate("/");
-    if (error) {
+    if (error && error.toLowerCase() !== "please login first") {
+      console.log("error : ", error);
       alert("Invalid credentials");
       dispatch(handleErrors());
     }
@@ -76,6 +77,7 @@ const Login = () => {
                   id="login_button"
                   type="submit"
                   className="btn btn-block py-3"
+                  disabled={!email || !password}
                 >
                   LOGIN
                 </button>

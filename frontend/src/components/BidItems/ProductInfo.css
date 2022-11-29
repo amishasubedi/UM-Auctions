@@ -69,7 +69,7 @@
 }
 
 #bid_button {
-  background-color: #febd69;
+  background-color: #f5ac4d;
   padding: 0.4rem 1.8rem;
   font-family: calibri;
 }
@@ -98,7 +98,7 @@
 #cart_btn,
 #review_btn {
   border-radius: 2rem;
-  background-color: #fa9c23;
+  background-color: #f5ac4d;
   border: none;
   padding: 0.5rem 2rem;
 }
@@ -152,7 +152,7 @@ ratings {
 }
 
 .orange {
-  color: #fa9c23;
+  color: #f5ac4d;
 }
 
 .yellow {
