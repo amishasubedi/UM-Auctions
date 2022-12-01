@@ -8,31 +8,41 @@ import {
   handleErrors,
 } from "../../redux/actions/product_actions";
 import "./ProductInfo.css";
-import { Link } from "react-router-dom";
+import { allUsers } from "../../redux/actions/user_actions";
 
 const ProductInfo = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const params = useParams();
   const [placed, setPlaced] = useState(false);
-  //const [input, setInput] = useState();
+  const [input, setInput] = useState();
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
 
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
+    console.log("Before bid", placed);
     dispatch(getProductDetails(params.id));
+    dispatch(allUsers(params.id));
 
     if (error) {
       dispatch(handleErrors());
     }
   }, [dispatch, params.id, error]);
 
+  const inputChangeHandler = (event) => {
+    console.log(event.target.value);
+    setInput(event.target.value);
+  };
+
   const bidSubmitHandler = () => {
     alert("Successfully placed the bid");
     setPlaced(true);
   };
+  console.log("After bid", placed);
 
   return (
     <Fragment>
@@ -56,6 +66,10 @@ const ProductInfo = () => {
                     : "Bid Ended for this product"}
                 </span>
               </p>
+
+              <span>
+                Test 2 won the bid at ${(product.price + 76).toFixed(2)}{" "}
+              </span>
               {/* to handle multiple images */}
               <Carousel pause="hover">
                 {product.images &&
@@ -103,7 +117,12 @@ const ProductInfo = () => {
                   <div className="rating w-50 mt-2"></div>
                   <div className="form">
                     <label htmlFor="email_field">Your bid ($)</label>
-                    <input type="number" id="bid_field" className="content" />
+                    <input
+                      type="number"
+                      id="bid_field"
+                      className="content"
+                      onChange={inputChangeHandler}
+                    />
 
                     <button
                       type="submit"
@@ -120,24 +139,18 @@ const ProductInfo = () => {
                     <div> ALL BIDS: </div>
                     <hr />
 
-                    {setPlaced && (
+                    {placed && (
                       <span>
-                        `Amisha Bidded ${(product.price + 12).toFixed(2)}
+                        {user.name} Bidded ${input}
                       </span>
                     )}
                     <hr />
 
-                    <span>
-                      `Test2 Bidded ${(product.price + 12).toFixed(2)}
-                    </span>
+                    <span>Test2 Bidded ${(product.price + 45).toFixed(2)}</span>
                     <hr />
-                    <span>
-                      `Test2 Bidded ${(product.price + 17).toFixed(2)}
-                    </span>
+                    <span>Test2 Bidded ${(product.price + 17).toFixed(2)}</span>
                     <hr />
-                    <span>
-                      `SSDSD Bidded ${(product.price + 28).toFixed(2)}
-                    </span>
+                    <span>SSDSD Bidded ${(product.price + 28).toFixed(2)}</span>
                     <hr />
                   </div>
                 </div>
