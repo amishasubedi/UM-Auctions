@@ -27,6 +27,7 @@ import AllProduct from "./components/admin/AllProduct";
 
 // admin imports
 import Dashboard from "./components/admin/Dashboard";
+import AllUser from "./components/admin/AllUser";
 
 function App() {
   const { isAdmin, isAuthenticated, user, loading } = useSelector(
@@ -64,7 +65,6 @@ function App() {
         <Route exact path="/password/update" element={<UpdatePassword />} />
         <Route exact path="/orders/myOrder" element={<MyBid />} />
 
-        <Route path="/all/users" element={<AllUsers />} />
         <Route
           path="/dashboard"
           isAdmin={true}
@@ -75,6 +75,12 @@ function App() {
           path="/admin/products"
           isAdmin={true}
           element={isAuthenticated ? <AllProduct /> : <Login />}
+        />
+
+        <Route
+          path="/admin/users"
+          isAdmin={true}
+          element={isAuthenticated ? <AllUser /> : <Login />}
         />
 
         <Route path="/new/auction" element={<NewAuction />} />

@@ -41,7 +41,7 @@ const MyBid = () => {
       data.rows.push({
         id: product._id,
         name: product.name,
-        price: `$${product.price + 100}.toFixed(2) `,
+        price: `$${(product.price + 100).toFixed(2)} `,
         stock: product.stock > 100 ? "Win" : "Lost",
         actions: (
           <Fragment>
