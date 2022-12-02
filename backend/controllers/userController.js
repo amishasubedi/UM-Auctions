@@ -11,12 +11,6 @@ exports.registerUser = AsyncErrors(async (req, res, next) => {
     name,
     email,
     password,
-
-    // hardcoded dp for now
-    avatar: {
-      public_id: "images/actor_ery7iu",
-      url: "https://m.media-amazon.com/images/I/41jLl36vt9L._AC_UY218_.jpg",
-    },
   });
 
   sendToken(user, 200, res);

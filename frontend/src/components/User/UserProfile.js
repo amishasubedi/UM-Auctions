@@ -41,7 +41,7 @@ const UserProfile = () => {
                     to="/orders/myOrder"
                     className="btn btn-danger btn-block mt-5"
                   >
-                    My Orders
+                    My Bids
                   </Link>
                 )}
 

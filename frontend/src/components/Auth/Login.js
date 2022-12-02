@@ -18,16 +18,17 @@ const Login = () => {
 
   // useeffect hook
   useEffect(() => {
-    {
-      {
-        !isAuthenticated ? navigate("/login") : navigate("/");
-      }
-    }
-    {
-      if (error) {
-        alert("Invalid credentials");
-        dispatch(handleErrors());
-      }
+    // if (isAuthenticated) {
+    //   navigate("/");
+    // } else {
+    //   navigate("/login");
+    // }
+    console.log("is authenticated ? ", isAuthenticated);
+    !isAuthenticated ? navigate("/login") : navigate("/");
+    if (error && error.toLowerCase() !== "please login first") {
+      console.log("error : ", error);
+      alert("Invalid credentials");
+      dispatch(handleErrors());
     }
   }, [dispatch, error, isAuthenticated, navigate]);
 
@@ -76,6 +77,7 @@ const Login = () => {
                   id="login_button"
                   type="submit"
                   className="btn btn-block py-3"
+                  disabled={!email || !password}
                 >
                   LOGIN
                 </button>
