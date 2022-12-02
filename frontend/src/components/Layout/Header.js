@@ -24,19 +24,16 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="col-12 col-md-6 mt-2 mt-md-0">
+        <div className="col-12 col-md-5 mt-2 mt-md-0">
           <ProductSearch />
         </div>
 
-        <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-          <Link to="/cart" style={{ textDecoration: "none" }}>
+        <div className="col-12 col-md-4 mt-4 mt-md-0 text-center">
+          {/* <Link to="/new/auction" style={{ textDecoration: "none" }}>
             <span id="cart" className="ml-3">
-              Cart
+              Create Auction
             </span>
-            <span className="ml-1" id="cart_count">
-              2
-            </span>
-          </Link>
+          </Link> */}
 
           {user ? (
             <div className="ml-4 dropdown d-inline">
@@ -52,7 +49,6 @@ const Header = () => {
               >
                 <div>
                   <div>Hello {user && user.name}</div>
-                  <span>Accounts&List</span>
                 </div>
               </Link>{" "}
               {/* // create drop down menu for user */}
@@ -78,8 +74,9 @@ const Header = () => {
                 </Link>
 
                 <Link className="dropdown-item" to="/new/auction">
-                  Auction
+                  Create Auction
                 </Link>
+
                 <Link
                   className="dropdown-item text-danger"
                   to="/"

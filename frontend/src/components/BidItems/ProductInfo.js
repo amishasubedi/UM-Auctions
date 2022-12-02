@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -8,27 +8,41 @@ import {
   handleErrors,
 } from "../../redux/actions/product_actions";
 import "./ProductInfo.css";
-import { Link } from "react-router-dom";
+import { allUsers } from "../../redux/actions/user_actions";
 
 const ProductInfo = () => {
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
   const params = useParams();
+  const [placed, setPlaced] = useState(false);
+  const [input, setInput] = useState();
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
 
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
+    console.log("Before bid", placed);
     dispatch(getProductDetails(params.id));
+    dispatch(allUsers(params.id));
 
     if (error) {
       dispatch(handleErrors());
     }
   }, [dispatch, params.id, error]);
 
-  const bidSumbitHandler = () => {
-    alert("Successfully placed the bid");
+  const inputChangeHandler = (event) => {
+    console.log(event.target.value);
+    setInput(event.target.value);
   };
+
+  const bidSubmitHandler = () => {
+    alert("Successfully placed the bid");
+    setPlaced(true);
+  };
+  console.log("After bid", placed);
 
   return (
     <Fragment>
@@ -52,6 +66,12 @@ const ProductInfo = () => {
                     : "Bid Ended for this product"}
                 </span>
               </p>
+              {product.stock === 0 && (
+                <span>
+                  Test 2 won the bid at ${(product.price + 76).toFixed(2)}{" "}
+                </span>
+              )}
+
               {/* to handle multiple images */}
               <Carousel pause="hover">
                 {product.images &&
@@ -74,8 +94,18 @@ const ProductInfo = () => {
               <p>{product.description}</p>
               <hr />
 
-              <h3>Bid Start: {product.bidStart}</h3>
-              <h3>Bid End: {product.bidEnd}</h3>
+              <h3>
+                Bid Start:{" "}
+                {product.bidStart
+                  ? product.bidStart.toString().split("T")[0]
+                  : product.bidStart}
+              </h3>
+              <h3>
+                Bid End:{" "}
+                {product.bidEnd
+                  ? product.bidEnd.toString().split("T")[0]
+                  : product.bidEnd}
+              </h3>
 
               <hr />
 
@@ -83,7 +113,7 @@ const ProductInfo = () => {
             </div>
 
             <div id="product_price" className="price">
-              Last Bid: $ {product.price}
+              Minimum Price: $ {product.price}
               {product.stock > 0 && (
                 <div className="row mt-2 ">
                   <div className="rating w-50 mt-2"></div>
@@ -93,20 +123,37 @@ const ProductInfo = () => {
                       type="number"
                       id="bid_field"
                       className="content"
-                      name="name"
+                      onChange={inputChangeHandler}
                     />
 
-                    <Link
-                      to="/"
+                    <button
                       type="submit"
+                      ref={inputRef}
                       id="bid_button"
-                      onClick={bidSumbitHandler}
+                      onClick={bidSubmitHandler}
                     >
                       Place Bid
-                    </Link>
+                    </button>
                     <p className="paragraph">{`(Enter ${
                       product.price + 1
                     } or more)`}</p>
+
+                    <div> ALL BIDS: </div>
+                    <hr />
+
+                    {placed && (
+                      <span>
+                        {user.name} Bidded ${input}
+                      </span>
+                    )}
+                    <hr />
+
+                    <span>Test2 Bidded ${(product.price + 45).toFixed(2)}</span>
+                    <hr />
+                    <span>Test2 Bidded ${(product.price + 17).toFixed(2)}</span>
+                    <hr />
+                    <span>SSDSD Bidded ${(product.price + 28).toFixed(2)}</span>
+                    <hr />
                   </div>
                 </div>
               )}

@@ -93,6 +93,7 @@ export const logoutUser = () => async (dispatch) => {
 
 // signup
 export const signupUser = (userDetails) => async (dispatch) => {
+  console.log("user register : ", userDetails);
   try {
     dispatch({
       type: REGISTER_FETCH,
@@ -100,12 +101,14 @@ export const signupUser = (userDetails) => async (dispatch) => {
 
     const config = {
       header: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
     };
 
     // fetch
     const { data } = await axios.post("/api/v1/register", userDetails, config);
+
+    console.log("signupUser try : ", data);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -116,6 +119,7 @@ export const signupUser = (userDetails) => async (dispatch) => {
       type: REGISTER_FAIL,
       payload: error.response.data.message,
     });
+    console.log("signupUser catch : ", error);
   }
 };
 

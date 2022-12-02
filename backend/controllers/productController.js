@@ -2,12 +2,38 @@ const Product = require("../models/product");
 const ErrorHandler = require("../utils/ErrorHandler");
 const AsyncErrors = require("../middlewares/AsyncErrors");
 const APIProduct = require("../utils/api");
+const cloudinary = require("cloudinary");
+
 // create new product
 exports.newProduct = AsyncErrors(async (req, res, next) => {
+  let images = [];
+  if (typeof images === "string") {
+    images.push(images);
+  } else {
+    images = images;
+  }
+
+  let imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "Products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
   req.body.user = req.user.id;
+
+  console.log("create auction request body : ", req);
+
   const product = await Product.create(req.body);
 
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     product,
   });
@@ -34,6 +60,15 @@ exports.getProducts = AsyncErrors(async (req, res, next) => {
     numberOfProducts,
     productsInPage,
     // filteredProductsCount,
+    products,
+  });
+});
+
+exports.getAdminProducts = AsyncErrors(async (req, res, next) => {
+  const products = await Product.find();
+
+  res.status(200).json({
+    success: true,
     products,
   });
 });
@@ -89,6 +124,12 @@ exports.deleteProduct = AsyncErrors(async (req, res, next) => {
       success: false,
       message: "Product not found",
     });
+  }
+
+  for (let i = 0; i < product.images.length; i++) {
+    const result = await cloudinary.v2.uploader.destroy(
+      product.images[i].public_id
+    );
   }
 
   await product.remove();

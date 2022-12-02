@@ -1,5 +1,34 @@
 const mongoose = require("mongoose");
+const getDateString = (date) => {
+  let year = date.getFullYear();
+  let day =
+    date.getDate().toString().length === 1
+      ? "0" + date.getDate()
+      : date.getDate();
+  let month =
+    date.getMonth().toString().length === 1
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1;
+  let hours =
+    date.getHours().toString().length === 1
+      ? "0" + date.getHours()
+      : date.getHours();
+  let minutes =
+    date.getMinutes().toString().length === 1
+      ? "0" + date.getMinutes()
+      : date.getMinutes();
+  let dateString = `${year}-${month}-${day}T${hours}:${minutes}`;
+  return dateString;
+};
 
+// declare default bidding start time and end time
+const currentDate = new Date();
+const defaultStartTime = getDateString(currentDate);
+const defaultEndTime = getDateString(
+  new Date(currentDate.setHours(currentDate.getHours() + 1))
+);
+
+//const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -17,10 +46,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter product description"],
   },
-  ratings: {
-    type: Number,
-    default: 0,
-  },
+
   images: [
     {
       public_id: {
@@ -33,27 +59,7 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-  category: {
-    type: String,
-    required: [true, "Please select category for this product"],
-    enum: {
-      values: [
-        "Electronics",
-        "Cameras",
-        "Laptops",
-        "Accessories",
-        "Headphones",
-        "Food",
-        "Books",
-        "Clothes/Shoes",
-        "Beauty/Health",
-        "Sports",
-        "Outdoor",
-        "Home",
-      ],
-      message: "Please select correct category for product",
-    },
-  },
+
   seller: {
     type: String,
     required: [true, "Please enter product seller"],
@@ -64,31 +70,16 @@ const productSchema = new mongoose.Schema({
     maxLength: [5, "Product name cannot exceed 5 characters"],
     default: 0,
   },
-  numOfReviews: {
-    type: Number,
-    default: 0,
+  bidStart: {
+    type: Date,
+    default: defaultStartTime,
   },
-  reviews: [
-    {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: false,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      rating: {
-        type: Number,
-        required: true,
-      },
-      comment: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+
+  bidEnd: {
+    type: Date,
+    bidEnd: defaultEndTime,
+  },
+
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",

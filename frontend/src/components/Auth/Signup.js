@@ -19,7 +19,7 @@ const Signup = () => {
   );
 
   const onChange = (event) => {
-    setUser({ ...user, [event.target.name]: [event.target.value] });
+    setUser({ ...user, [event.target.name]: event.target.value });
   };
 
   // useeffect hook
@@ -34,12 +34,14 @@ const Signup = () => {
 
   const userRegisterHandler = (event) => {
     event.preventDefault();
-    const userData = new userData();
-    userData.set("name", name);
-    userData.set("email", email);
-    userData.set("password", password);
 
-    dispatch(signupUser(userData));
+    const requestBody = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    dispatch(signupUser(requestBody));
   };
   return (
     <Fragment>
