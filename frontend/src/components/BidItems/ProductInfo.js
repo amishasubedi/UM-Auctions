@@ -66,10 +66,12 @@ const ProductInfo = () => {
                     : "Bid Ended for this product"}
                 </span>
               </p>
+              {product.stock === 0 && (
+                <span>
+                  Test 2 won the bid at ${(product.price + 76).toFixed(2)}{" "}
+                </span>
+              )}
 
-              <span>
-                Test 2 won the bid at ${(product.price + 76).toFixed(2)}{" "}
-              </span>
               {/* to handle multiple images */}
               <Carousel pause="hover">
                 {product.images &&
