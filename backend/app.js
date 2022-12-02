@@ -4,9 +4,11 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyparser = require("body-parser");
 const cloudinary = require("cloudinary");
-const dotenv = require("dotenv");
+//const dotenv = require("dotenv");
 const path = require("path");
 
+if (process.env.NODE_ENV !== "PRODUCTION")
+  require("dotenv").config({ path: "backend/config/confid.env" });
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
