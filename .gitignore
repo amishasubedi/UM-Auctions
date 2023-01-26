@@ -8,11 +8,12 @@
 /frontend/build
 
 # misc
-/backend/config/config.env
 /frontend/.env.local
 /frontend/.env.development.local
 /frontend/.env.test.local
 /frontend/.env.production.local
+
+
 /backend/config/config.env
 
 npm-debug.log*
