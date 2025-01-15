@@ -10,7 +10,6 @@ const connectDatabase = () => {
     process.exit(1);
   }
 
-  // Connect to MongoDB using the provided local URI
   mongoose
     .connect(dbURI, {
       useNewUrlParser: true,

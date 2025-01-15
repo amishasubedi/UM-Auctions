@@ -25,7 +25,6 @@ const auth = require("./routes/auth");
 const orders = require("./routes/order");
 const bid = require("./routes/bid");
 
-app.set("view engine", "jade");
 
 app.use((err, req, res, next) => {
   res.locals.error = err;
