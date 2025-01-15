@@ -4,16 +4,15 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyparser = require("body-parser");
 const cloudinary = require("cloudinary");
-//const dotenv = require("dotenv");
 const path = require("path");
 
-if (process.env.NODE_ENV !== "PRODUCTION")
-  require("dotenv").config({ path: "backend/config/confid.env" });
+require("dotenv").config({ path: "./config/.env" });
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
 
-// upload image fetch
+// image cloud
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -24,7 +23,7 @@ cloudinary.config({
 const products = require("./routes/product");
 const auth = require("./routes/auth");
 const orders = require("./routes/order");
-//const auction = require("./routes/auction");
+const bid = require("./routes/bid");
 
 app.set("view engine", "jade");
 
@@ -38,6 +37,7 @@ app.use((err, req, res, next) => {
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
 app.use("/api/v1", orders);
+app.use("/api/v1", bid);
 
 if (process.env.NODE_ENV === "PRODUCTION") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
@@ -47,7 +47,6 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
-//app.use("/api/v1", auction);
-app.use(errorMiddleware); // to handle global errors
+app.use(errorMiddleware);
 
 module.exports = app;

@@ -1,35 +1,30 @@
 const app = require("./app");
 const connectDatabase = require("./config/database");
-
 const dotenv = require("dotenv");
 
-// uncaught exceptions handling
+// Load environment variables
+dotenv.config({ path: "./backend/config/config.env" });
+
+// Error handling for uncaught exceptions
 process.on("uncaughtException", (err) => {
-  console.log(`ERROR: ${err.message}`);
-  console.log("server down due to uncaught exceptions");
+  console.error(`ERROR: ${err.message}`);
+  console.error("Server down due to uncaught exceptions");
   process.exit(1);
 });
 
-//set up config file
-if (process.env.NODE_ENV !== "PRODUCTION")
-  require("dotenv").config({ path: "backend/config/config.env" });
-
-// connect to mongodb, call the function
+// Connect to the database
 connectDatabase();
 
+// Start the server
 const server = app.listen(process.env.PORT, () => {
   console.log(
     `SERVER started on port: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
   );
 });
 
-const serverCloseHandler = () => {
-  process.exit(1);
-};
-
-// promise rejections errors
+// Handle unhandled promise rejections
 process.on("unhandledRejection", (err) => {
-  console.log(`ERROR: ${err.stack}`);
-  console.log("Server down due to unhandled promise rejection");
-  server.close(serverCloseHandler());
+  console.error(`ERROR: ${err.stack}`);
+  console.error("Server down due to unhandled promise rejection");
+  server.close(() => process.exit(1));
 });

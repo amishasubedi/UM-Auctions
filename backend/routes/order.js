@@ -1,28 +1,31 @@
 const express = require("express");
 const router = express.Router();
-
 const {
-  newOrder,
-  getSingleOrder,
-  myOrders,
+  createOrder,
+  getUserOrders,
   getAllOrders,
-  updateOrder,
-  deleteOrder,
+  getOrderDetails,
+  updateOrderStatus,
+  cancelOrder,
 } = require("../controllers/orderController");
+
 const { isAuthenticated, assignRole } = require("../middlewares/auth");
 
-router.route("/order/new").post(isAuthenticated, newOrder);
-router.route("/order/:id").get(isAuthenticated, getSingleOrder);
-router.route("/orders/myOrder").get(isAuthenticated, myOrders);
+// Order Routes
+router.route("/order").post(isAuthenticated, createOrder);
+router.route("/user/orders").get(isAuthenticated, getUserOrders);
+router.route("/order/:id").get(isAuthenticated, getOrderDetails);
 
-//admin
+// Admin Routes
 router
   .route("/admin/orders")
   .get(isAuthenticated, assignRole("admin"), getAllOrders);
+router
+  .route("/admin/order/:id")
+  .put(isAuthenticated, assignRole("admin"), updateOrderStatus)
+  .delete(isAuthenticated, assignRole("admin"), cancelOrder);
 
-// router
-//   .route("/admin/order/:id")
-//   .put(isAuthenticated, assignRole("admin"), updateOrder);
-router.route("/admin/order/delete/:id").delete(isAuthenticated, deleteOrder);
+// User or Admin: Cancel an order
+router.route("/order/:id/cancel").delete(isAuthenticated, cancelOrder);
 
 module.exports = router;
