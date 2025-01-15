@@ -10,13 +10,9 @@ const {
   cancelBid,
 } = require("../controllers/bidControllers");
 
-router.route("/bid/place-bid").get(placeBid);
+router.route("/bid/place-bid").get(isAuthenticated, placeBid);
 router.route("/bid/all-bid").get(getProductBids);
 router.route("/bids/highest").get(getHighestBid);
-router.route("/bid/remove").delete(cancelBid);
-
-// router
-//   .route("/admin/products/:id")
-//   .delete(isAuthenticated, assignRole("admin"), deleteProduct);
+router.route("/bid/remove").delete(isAuthenticated, cancelBid);
 
 module.exports = router;

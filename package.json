@@ -5,10 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/server.js",
-    "prod": "SET NODE_ENV=PRODUCTION& nodemon backend/server.js",
-    "seeder": "node backend/utils/seeder.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+    "dev": "SET NODE_ENV=DEVELOPMENT && nodemon backend/server.js",
+    "prod": "SET NODE_ENV=PRODUCTION && nodemon backend/server.js",
+    "seeder": "node backend/utils/seeder.js"
   },
   "author": "Group 5",
   "license": "ISC",
@@ -29,8 +28,4 @@
   "devDependencies": {
     "nodemon": "^2.0.20"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 393021775158396b2579ef9e97c76d96c9ab1e62
